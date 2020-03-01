@@ -1,5 +1,6 @@
 package com;
 
-public class Tablero {
+public class Tablero 
+{
 
 }
