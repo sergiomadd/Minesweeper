@@ -4,14 +4,14 @@ public class Buscaminas
 {
 	private int dificultad;
 	private Tablero tablero;
-	private Buscaminas miBuscaminas;
+	private static Buscaminas miBuscaminas;
 	
 	private Buscaminas()
 	{
 		
 	}
 	
-	public Buscaminas getBuscaminas()
+	public static synchronized Buscaminas getBuscaminas()
 	{
 		if(miBuscaminas == null)
 		{

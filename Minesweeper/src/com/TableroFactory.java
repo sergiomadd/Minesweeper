@@ -2,7 +2,7 @@ package com;
 
 public class TableroFactory 
 {
-	private TableroFactory mFactory;
+	private static TableroFactory mFactory;
 	
 	
 	private TableroFactory()
@@ -10,7 +10,7 @@ public class TableroFactory
 		
 	}
 	
-	public TableroFactory getTableroFactory() 
+	public static synchronized TableroFactory getTableroFactory() 
 	{
 		if(mFactory == null)
 		{
