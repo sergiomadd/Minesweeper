@@ -85,6 +85,7 @@ public class VistaJuego extends JFrame {
 		Menu.add(lblTiempo);
 		for(int i=0; i < x ; i++){
 			for(int j=0; j < y; j++){
+				//adsfa
 				JButton btnNewButton = new JButton("");
 				Grid.add(btnNewButton);
 				Color sinmarcar = new Color(220,220,220);
