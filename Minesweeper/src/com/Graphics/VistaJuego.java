@@ -68,7 +68,7 @@ public class VistaJuego extends JFrame {
 		Menu.add(lblPuntos);
 		
 		JButton btnReset = new JButton("RESET");
-		btnReset.setIcon(new ImageIcon(VistaJuego.class.getResource("/org/eclipse/jface/dialogs/images/help.png")));
+		//btnReset.setIcon(new ImageIcon(VistaJuego.class.getResource("/org/eclipse/jface/dialogs/images/help.png")));
 		Menu.add(btnReset);
 		
 		

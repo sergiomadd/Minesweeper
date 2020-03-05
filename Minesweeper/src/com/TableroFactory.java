@@ -19,11 +19,11 @@ public class TableroFactory
 		return mFactory;
 	}
 	
-	public Tablero crearProducto(int dificultad)
+	/*public Tablero crearProducto(int dificultad)
 	{
-		Tablero tab = new Tablero();
+		//Tablero tab = new Tablero();
 		
 		
 		return tab;
-	}
+	}*/
 }
