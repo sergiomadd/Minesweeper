@@ -46,8 +46,6 @@ public class VistaJuego extends JFrame {
 		JPanel Menu = new JPanel();
 		contentPane.add(Menu, BorderLayout.NORTH);
 		Menu.setLayout(new GridLayout(0, 3, 0, 0));
-		//hola
-		
 		JLabel lblPuntos = new JLabel("puntos");
 		lblPuntos.setHorizontalAlignment(SwingConstants.CENTER);
 		Menu.add(lblPuntos);
