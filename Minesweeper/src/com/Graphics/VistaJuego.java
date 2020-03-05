@@ -48,7 +48,7 @@ public class VistaJuego extends JFrame {
 		Menu.setLayout(new GridLayout(0, 3, 0, 0));
 		JLabel lblPuntos = new JLabel("puntos");
 		lblPuntos.setHorizontalAlignment(SwingConstants.CENTER);
-		Menu.add(lblPuntos);
+		Menu.add(lblPuntos);//
 		
 		JButton btnReset = new JButton("RESET");
 		btnReset.setIcon(new ImageIcon(window.class.getResource("/org/eclipse/jface/dialogs/images/help.png")));
