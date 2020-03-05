@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
@@ -19,6 +20,10 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.EventListener;
 
 import javax.swing.SwingConstants;
 
@@ -41,6 +46,9 @@ public class VistaJuego extends JFrame {
 			}
 		});
 	}
+	
+		
+		
 
 	/**
 	 * Create the frame.
@@ -68,7 +76,7 @@ public class VistaJuego extends JFrame {
 		Menu.add(lblPuntos);
 		
 		JButton btnReset = new JButton("RESET");
-		btnReset.setIcon(new ImageIcon(VistaJuego.class.getResource("/org/eclipse/jface/dialogs/images/help.png")));
+		//btnReset.setIcon(new ImageIcon(VistaJuego.class.getResource("/org/eclipse/jface/dialogs/images/help.png")));
 		Menu.add(btnReset);
 		
 		
@@ -82,12 +90,17 @@ public class VistaJuego extends JFrame {
 				Color sinmarcar = new Color(220,220,220);
 				btnNewButton.setBackground(sinmarcar);
 				btnNewButton.setBorder(new LineBorder(Color.WHITE));
-				btnNewButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						 Color marcado = new Color(169,169,169);
+				btnNewButton.addMouseListener(new MouseAdapter() {
+					public void mouseClicked(MouseEvent arg0) {
+						System.out.println("A");
+						Color marcado = new Color(169,169,169);
 						btnNewButton.setBackground(marcado);
 						btnNewButton.setBorder(new LineBorder(Color.DARK_GRAY));
 					}
+
+					
+
+					
 				});
 			}
 		}
