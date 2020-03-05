@@ -5,7 +5,7 @@ public class Buscaminas
 	private int dificultad;
 	private Tablero tablero;
 	private static Buscaminas miBuscaminas;
-	
+	//hila
 	private Buscaminas()
 	{
 		

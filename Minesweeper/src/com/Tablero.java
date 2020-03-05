@@ -1,6 +1,6 @@
 package com;
 
-import java.util.Observable;
+//Hacer interfaz obserbar
 
 public class Tablero extends Observable
 {
