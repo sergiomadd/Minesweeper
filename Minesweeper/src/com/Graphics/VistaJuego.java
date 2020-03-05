@@ -1,11 +1,26 @@
 package com.Graphics;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
+import java.awt.GridLayout;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import java.awt.GridBagLayout;
+import javax.swing.JLabel;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.SwingConstants;
 
 public class VistaJuego extends JFrame {
 
@@ -18,7 +33,7 @@ public class VistaJuego extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VistaJuego frame = new VistaJuego();
+					VistaJuego frame = new VistaJuego(7,10);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -30,7 +45,8 @@ public class VistaJuego extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VistaJuego() {
+	public VistaJuego(int x, int y) {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 400);
 		setResizable(false);
@@ -46,12 +62,13 @@ public class VistaJuego extends JFrame {
 		JPanel Menu = new JPanel();
 		contentPane.add(Menu, BorderLayout.NORTH);
 		Menu.setLayout(new GridLayout(0, 3, 0, 0));
+		
 		JLabel lblPuntos = new JLabel("puntos");
 		lblPuntos.setHorizontalAlignment(SwingConstants.CENTER);
-		Menu.add(lblPuntos);//
+		Menu.add(lblPuntos);
 		
 		JButton btnReset = new JButton("RESET");
-		btnReset.setIcon(new ImageIcon(window.class.getResource("/org/eclipse/jface/dialogs/images/help.png")));
+		btnReset.setIcon(new ImageIcon(VistaJuego.class.getResource("/org/eclipse/jface/dialogs/images/help.png")));
 		Menu.add(btnReset);
 		
 		
@@ -72,10 +89,9 @@ public class VistaJuego extends JFrame {
 						btnNewButton.setBorder(new LineBorder(Color.DARK_GRAY));
 					}
 				});
-				//comentario
 			}
 		}
-
+		
 	}
 
 }
