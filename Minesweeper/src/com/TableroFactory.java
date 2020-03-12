@@ -19,11 +19,24 @@ public class TableroFactory
 		return mFactory;
 	}
 	
-	public Tablero crearProducto(int dificultad)
+	public Casilla crearCasilla(int tipo)
 	{
-		Tablero tab = new Tablero();
+		Casilla casilla = null;
 		
+		if(tipo < 0)
+		{
+			casilla = new CasillaMina();
+		}
+		if(tipo == 0)
+		{
+			casilla = new CasillaVacia();
+		}
+		if(tipo > 0)
+		{
+			casilla = new CasillaNumero(tipo);
+		}
 		
-		return tab;
+		return casilla;
 	}
 }
+
