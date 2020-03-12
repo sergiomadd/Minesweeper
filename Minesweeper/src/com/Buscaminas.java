@@ -1,10 +1,16 @@
 package com;
 
+import com.Graphics.VistaInicial;
+import com.Graphics.VistaJuego;
+
 public class Buscaminas 
 {
 	private int dificultad;
 	private Tablero tablero;
 	private static Buscaminas miBuscaminas;
+	private VistaJuego vistaJuego;
+	private VistaInicial vistaInicial;
+	private Observable observable;
 	
 	private Buscaminas()
 	{
@@ -21,13 +27,12 @@ public class Buscaminas
 	}
 	
 	public void iniciarPartida()
-	{
-		//
+	{	
+		//inicializar vistaInicial como hacer new de un JFrame
 		crearTablero();
-		//Init VistaJuego
-		//
-		//
-
+		vistaInicial = new VistaInicial();
+		observable = new Observable();
+		
 	}
 	
 	public void crearTablero()
@@ -50,9 +55,14 @@ public class Buscaminas
 		}
 	}
 	
-	public void acabar() 
+	public void perder()
 	{
-		
+		tablero.revelarBombas();
+	}
+	
+	public void ganar() 
+	{
+		//se cierra la pantsalla de bombas y se habra pantalla ganar
 	}
 	
 	

@@ -4,8 +4,13 @@ public class CasillaNumero extends Casilla
 {
 	private int num;
 	
-	public void setNum(Integer pNum)
+	public CasillaNumero(Integer pNum)
 	{
 		this.num = pNum;
+	}
+	
+	public void print()
+	{
+		System.out.print(num);
 	}
 }

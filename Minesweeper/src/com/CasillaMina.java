@@ -2,5 +2,8 @@ package com;
 
 public class CasillaMina extends Casilla 
 {
-	//prueba
+	public void print()
+	{
+		System.out.print("B");
+	}
 }
