@@ -23,9 +23,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.SimpleDateFormat;
 import java.util.EventListener;
 
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
 public class VistaJuego extends JFrame {
 
@@ -46,6 +48,29 @@ public class VistaJuego extends JFrame {
 			}
 		});
 	}
+	
+
+	
+	
+	public void reset() {
+		contentPane.removeAll();
+		dispose();
+		//Como hacer para que no haya que abrir una ventana nueva entera cada vez
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VistaJuego frame = new VistaJuego(7,10);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		
+		}
+
+	
 	
 		
 		
@@ -77,15 +102,22 @@ public class VistaJuego extends JFrame {
 		
 		JButton btnReset = new JButton("RESET");
 		//btnReset.setIcon(new ImageIcon(VistaJuego.class.getResource("/org/eclipse/jface/dialogs/images/help.png")));
+		btnReset.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				reset();
+				
+			}
+		});
+		
 		Menu.add(btnReset);
 		
 		
-		JLabel lblTiempo = new JLabel("tiempo");
+		JLabel lblTiempo = new JLabel("00:00");
 		lblTiempo.setHorizontalAlignment(SwingConstants.CENTER);
 		Menu.add(lblTiempo);
-		for(int i=0; i < x ; i++){
+		for(int i=0; i < x ; i++) {
 			for(int j=0; j < y; j++){
-				//adsfa
+				//a
 				JButton btnNewButton = new JButton("");
 				Grid.add(btnNewButton);
 				Color sinmarcar = new Color(220,220,220);
@@ -93,7 +125,6 @@ public class VistaJuego extends JFrame {
 				btnNewButton.setBorder(new LineBorder(Color.WHITE));
 				btnNewButton.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent arg0) {
-						System.out.println("A");
 						Color marcado = new Color(169,169,169);
 						btnNewButton.setBackground(marcado);
 						btnNewButton.setBorder(new LineBorder(Color.DARK_GRAY));
@@ -103,9 +134,23 @@ public class VistaJuego extends JFrame {
 
 					
 				});
+				
 			}
 		}
 		
-	}
+	    new Timer(1000, new ActionListener() {
+	    	SimpleDateFormat f = new SimpleDateFormat("mm:ss");
+	    	long start = System.currentTimeMillis();
+	    	
+	    	
+
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	          lblTiempo.setText(String.valueOf(f.format((System.currentTimeMillis()-start))));
+	        }
+	      }).start();
+	    }
+		
+	
 
 }
