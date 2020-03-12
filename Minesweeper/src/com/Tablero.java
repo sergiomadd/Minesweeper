@@ -1,5 +1,7 @@
 package com;
 
+import java.util.Random;
+
 public class Tablero extends Observable
 {
 	private Casilla[][] matriz;
@@ -85,30 +87,28 @@ public class Tablero extends Observable
 		return inBounds;
 	}
 	
-	public void mostrarCasilla(Integer x, Integer y)
+	public void mostrarCasilla(Integer x, Integer y, String click)
 	{
+		if(inBounds(x,y))
+		{
+			if(this.matriz[x][y].setVisible(click))
+			{
+				contadorCasillas--;
+			}
+		}
+		
 		if(this.matriz[x][y] instanceof CasillaMina)
 		{
-			this.matriz[x][y].setVisible();
 			finalizarPartida(false);
 		}
-		else if(this.matriz[x][y] instanceof CasillaVacia) 
-		{
-			this.matriz[x][y].setVisible();
-		}
-		else if(this.matriz[x][y] instanceof CasillaNumero)
-		{
-			this.matriz[x][y].setVisible();
-		}
-		//Comprueba si has ganado, mira si la cantidad 
-		//de bombas + casillas destapadas es igual al 
-		//numero total de casilas
-		if(contadorCasillas == 0)
-		{
-			finalizarPartida(true);
-		}
 		
-		
+		else 
+		{
+			if(contadorCasillas <= 0)
+			{
+				finalizarPartida(true);
+			}
+		}
 	}
 	
 	public void printTablero()
@@ -128,7 +128,23 @@ public class Tablero extends Observable
 	{
 		if(ganado == false)
 		{
-			//destapar bombas
-		}	
+			for (int i = 0; i < matriz.length; i++)
+			{
+				for (int j = 0; j < matriz[i].length; j++)
+				{
+					Casilla casilla = matriz[i][j];
+					if(casilla instanceof CasillaMina)
+					{
+						casilla.setVisible("izq");
+					}
+				}
+			}
+			System.out.println("Has perdido :(");
+		}
+		else
+		{
+			//mostrar puntuacion.
+			System.out.println("Has ganado :D");
+		}
 	}
 }

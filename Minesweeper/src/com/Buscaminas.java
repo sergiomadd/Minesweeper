@@ -28,11 +28,10 @@ public class Buscaminas
 	
 	public void iniciarPartida()
 	{	
-		//inicializar vistaInicial como hacer new de un JFrame
+		observable = new Observable();
 		crearTablero();
 		vistaInicial = new VistaInicial();
-		observable = new Observable();
-		
+
 	}
 	
 	public void crearTablero()
@@ -55,16 +54,18 @@ public class Buscaminas
 		}
 	}
 	
-	public void perder()
+	public void acabarPartida()
 	{
-		tablero.revelarBombas();
+		//VistaJuego.dispose();
 	}
 	
-	public void ganar() 
+	public Tablero getTablero()
 	{
-		//se cierra la pantsalla de bombas y se habra pantalla ganar
+		return this.tablero;
 	}
 	
-	
-	
+	//Ganar
+	//al acabar ovolver a llamar a iniciar partida.
+	//clases de estado de casillas -> Sergio G
+	//vista inicial
 }
