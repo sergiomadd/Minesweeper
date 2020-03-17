@@ -42,7 +42,7 @@ public class Tablero extends Observable
 	
 	
 	private int comprobarVecinos(int posX, int posY)
-	{
+	{//
 		int count = 0;
 		
 		int[] x = new int[8];
