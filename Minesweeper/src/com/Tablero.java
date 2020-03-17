@@ -1,5 +1,7 @@
 package com;
 
+import java.util.Random;
+
 public class Tablero extends Observable
 {
 	private Casilla[][] matriz;

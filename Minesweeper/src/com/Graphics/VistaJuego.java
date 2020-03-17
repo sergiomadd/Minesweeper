@@ -12,6 +12,8 @@ import javax.swing.border.LineBorder;
 
 
 import java.awt.GridLayout;
+import java.awt.Image;
+
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import java.awt.GridBagLayout;
@@ -27,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.EventListener;
 
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 public class VistaJuego extends JFrame {
@@ -80,6 +83,12 @@ public class VistaJuego extends JFrame {
 	 */
 	public VistaJuego(int x, int y) {
 		
+		JButton[][] posMinas = new JButton[x][y];
+		
+			
+			
+
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 400);
 		setResizable(false);
@@ -101,8 +110,8 @@ public class VistaJuego extends JFrame {
 		Menu.add(lblPuntos);
 		
 		JButton btnReset = new JButton("RESET");
-		//btnReset.setIcon(new ImageIcon(VistaJuego.class.getResource("/org/eclipse/jface/dialogs/images/help.png")));
-<<<<<<< HEAD
+	
+
 		btnReset.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				reset();
@@ -110,8 +119,7 @@ public class VistaJuego extends JFrame {
 			}
 		});
 		
-=======
->>>>>>> branch 'master' of https://github.com/sergiomadd/Minesweeper.git
+
 		Menu.add(btnReset);
 		
 		
@@ -126,11 +134,39 @@ public class VistaJuego extends JFrame {
 				Color sinmarcar = new Color(220,220,220);
 				btnNewButton.setBackground(sinmarcar);
 				btnNewButton.setBorder(new LineBorder(Color.WHITE));
+				
+				posMinas[i][j] = btnNewButton;
+				
+				
 				btnNewButton.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent arg0) {
-						Color marcado = new Color(169,169,169);
-						btnNewButton.setBackground(marcado);
-						btnNewButton.setBorder(new LineBorder(Color.DARK_GRAY));
+						Coordenada coord=null;
+						for (int i = 0; i < x; i++) {
+						    for (int j = 0; j < y; j++) {
+						       if (posMinas[i][j] == btnNewButton) {
+						    	   coord = new Coordenada(i,j);
+						    	   
+						       }
+						    }	   
+						   
+						  }
+						 coord.displayCoord();
+						
+						if (SwingUtilities.isLeftMouseButton(arg0)) {
+							Color marcado = new Color(169,169,169);
+							btnNewButton.setBackground(marcado);
+							btnNewButton.setBorder(new LineBorder(Color.DARK_GRAY));
+							//Buscaminas.getBuscaminas().clicarCasilla(coord,"izq");
+							
+						}
+						
+						else {
+							Color marcado = new Color(0,0,0);
+							btnNewButton.setBackground(marcado);
+							btnNewButton.setBorder(new LineBorder(Color.RED));
+							//Buscaminas.getBuscaminas().clicarCasilla(coord,"der");
+						}
+						
 					}
 
 					
