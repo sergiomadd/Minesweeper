@@ -164,7 +164,7 @@ public class VistaJuego extends JFrame {
 							Color marcado = new Color(0,0,0);
 							btnNewButton.setBackground(marcado);
 							btnNewButton.setBorder(new LineBorder(Color.RED));
-							//Buscaminas.getBuscaminas().clicarCasilla(coord,"der");
+							//Buscaminas.getBuscaminas().clicarCasilla(coord,"der") ;
 						}
 						
 					}
