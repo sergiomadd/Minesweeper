@@ -28,6 +28,7 @@ public class Buscaminas
 	
 	public void iniciarPartida()
 	{	
+		this.dificultad = 1;
 		observable = new Observable();
 		crearTablero();
 		vistaInicial = new VistaInicial();
@@ -36,17 +37,16 @@ public class Buscaminas
 	
 	public void crearTablero()
 	{
-		Tablero t;
 		switch(dificultad)
 		{
 		case 1:
-			t = new Tablero(7, 10, 7*1);
+			tablero = new Tablero(7, 10, 7*1);
 			break;
 		case 2:
-			t = new Tablero(10, 15, 15*2);
+			tablero = new Tablero(10, 15, 15*2);
 			break;
 		case 3:
-			t = new Tablero(12, 25, 25*3);
+			tablero = new Tablero(12, 25, 25*3);
 			break;
 		default:
 			System.out.println("Error creacion de tablero (buscaminas)");

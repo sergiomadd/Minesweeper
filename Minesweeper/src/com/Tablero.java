@@ -91,10 +91,10 @@ public class Tablero extends Observable
 	{
 		if(inBounds(x,y))
 		{
-			if(this.matriz[x][y].setVisible(click))
+			/*if(this.matriz[x][y].setVisible(click))
 			{
 				contadorCasillas--;
-			}
+			}*/
 		}
 		
 		if(this.matriz[x][y] instanceof CasillaMina)
@@ -135,7 +135,7 @@ public class Tablero extends Observable
 					Casilla casilla = matriz[i][j];
 					if(casilla instanceof CasillaMina)
 					{
-						casilla.setVisible("izq");
+						//casilla.setVisible("izq");
 					}
 				}
 			}
