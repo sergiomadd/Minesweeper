@@ -70,7 +70,6 @@ public class VistaJuego extends JFrame {
 			}
 		});
 		
-		
 		}
 
 	
@@ -110,7 +109,8 @@ public class VistaJuego extends JFrame {
 		Menu.add(lblPuntos);
 		
 		JButton btnReset = new JButton("RESET");
-	
+
+		//btnReset.setIcon(new ImageIcon(VistaJuego.class.getResource("/org/eclipse/jface/dialogs/images/help.png")));
 
 		btnReset.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
@@ -118,10 +118,8 @@ public class VistaJuego extends JFrame {
 				
 			}
 		});
-		
 
 		Menu.add(btnReset);
-		
 		
 		JLabel lblTiempo = new JLabel("00:00");
 		lblTiempo.setHorizontalAlignment(SwingConstants.CENTER);
