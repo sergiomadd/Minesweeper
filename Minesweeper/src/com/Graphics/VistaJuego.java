@@ -10,6 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import com.Buscaminas;
+import com.Observer;
+import com.Tablero;
 
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -32,7 +35,7 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
-public class VistaJuego extends JFrame {
+public class VistaJuego extends JFrame implements Observer{
 
 	private JPanel contentPane;
 
@@ -52,6 +55,32 @@ public class VistaJuego extends JFrame {
 		});
 	}
 	
+	public void update(Observer tab, Coordenada[] cambios) {
+		for( Coordenada c: cambios) {
+			int x=c.getX();
+			int y=c.getY(); 	
+			mostrar = tab.getMostrar(x,y);
+			if (mostrar=="vacio"){
+				posMinas[x][y].setColor();
+					
+			}
+			else if(mostrar=="numero") {
+				tab.getMatriz()[x][y].getNum();
+			}
+			else if(mostrar=="bandera") {
+				//muestra imagen bandera
+			}
+			else if(mostrar=="bomba") {
+				//muestra bomba en x,y fondo rojo
+				//muestra resto de bombas fondo gris
+			}
+			else if(mostrar=="tapado") {
+				
+			}
+			
+		}
+		
+	}
 
 	
 	
@@ -83,11 +112,8 @@ public class VistaJuego extends JFrame {
 	public VistaJuego(int x, int y) {
 		
 		JButton[][] posMinas = new JButton[x][y];
-		
 			
-			
-
-		
+					
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 400, 400);
 		setResizable(false);
