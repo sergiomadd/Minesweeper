@@ -2,6 +2,8 @@ package com;
 
 import java.util.Random;
 
+import com.Graphics.Coordenada;
+
 public class Tablero extends Observable
 {
 	private Casilla[][] matriz;
@@ -87,6 +89,39 @@ public class Tablero extends Observable
 		return inBounds;
 	}
 	
+	private void mostrarVecinos(int posX, int posY, String click)
+	{
+		int count = 0;
+		
+		int[] x = new int[8];
+		x[0] = posX;
+		x[1] = posX;
+		x[2] = posX+1;
+		x[3] = posX-1;
+		x[4] = posX+1;
+		x[5] = posX+1;
+		x[6] = posX-1;
+		x[7] = posX-1;
+		
+		int[] y = new int[8];
+		y[0] = posY+1;
+		y[1] = posY-1;
+		y[2] = posY;
+		y[3] = posY;
+		y[4] = posY+1;
+		y[5] = posY-1;
+		y[6] = posY+1;
+		y[7] = posY-1;
+		
+		for (int i = 0; i < x.length; i++)
+		{
+			if(inBounds(x[i],y[i]))
+			{
+				mostrarCasilla(x[i], y[i], click);
+			}
+		}
+	}
+	
 	public void mostrarCasilla(Integer x, Integer y, String click)
 	{
 		if(inBounds(x,y))
@@ -94,6 +129,13 @@ public class Tablero extends Observable
 			if(this.matriz[x][y].setVisible(click))
 			{
 				contadorCasillas--;
+				
+				notifyObservers(this, x, y);
+				
+				if(this.matriz[x][y] instanceof CasillaVacia)
+				{
+					mostrarVecinos(x, y, click);
+				}
 			}
 		}
 		
@@ -111,18 +153,34 @@ public class Tablero extends Observable
 		}
 	}
 	
+	@Override
+	public void notifyObservers(Tablero tab, int x, int y)
+	{
+		Buscaminas.getBuscaminas().getVistaJuego().update(this, x, y);
+		//REcorrer el array primero
+	}
+	
 	public void printTablero()
 	{
 		for (int i = 0; i < matriz.length; i++)
 		{
 			for (int j = 0; j < matriz[i].length; j++)
 			{
-				matriz[i][j].print();
+				matriz[i][j].print(); //arreglar
 			}
 			System.out.println();
 		}
 	}
 	
+	public String mostrar()
+	{
+		//mirar los estados y determinar que hay que mostrar
+	}
+	
+	public Casilla[][] getMatriz()
+	{
+		return matriz;
+	}
 	
 	public void finalizarPartida(boolean ganado)
 	{
@@ -140,6 +198,7 @@ public class Tablero extends Observable
 				}
 			}
 			System.out.println("Has perdido :(");
+			notifyObservers(x, y, click);
 		}
 		else
 		{

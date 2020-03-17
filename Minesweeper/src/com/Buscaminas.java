@@ -59,6 +59,8 @@ public class Buscaminas
 	
 	public void clicarCasilla(Coordenada coord, String click) 
 	{
+		tablero.mostrarCasilla(coord.getX(), coord.getY(), click);
+		tablero.notifyObservers(coord);
 	}
 	
 	public void perder()
@@ -71,6 +73,10 @@ public class Buscaminas
 		//se cierra la pantsalla de bombas y se habra pantalla ganar
 	}
 	
+	public VistaJuego getVistaJuego()
+	{
+		return vistaJuego;
+	}
 	
 	
 }
