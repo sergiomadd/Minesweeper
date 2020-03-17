@@ -12,7 +12,7 @@ public class Observable
 		this.observers = new ArrayList<Observer>();
 		this.changed = false;
 	}
-	
+	//
 	public void addObserver(Observer o)
 	{
 		observers.add(o);

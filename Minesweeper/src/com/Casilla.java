@@ -13,7 +13,7 @@ public abstract class Casilla
 	{
 		this.visible = true;
 		return true;
-		//cambiar
+		//cambiar2
 	}
 	
 	public void print()

@@ -156,6 +156,7 @@ public class Tablero extends Observable
 	@Override
 	public void notifyObservers(Tablero tab, int x, int y)
 	{
+		//
 		Buscaminas.getBuscaminas().getVistaJuego().update(this, x, y);
 		//REcorrer el array primero
 	}
