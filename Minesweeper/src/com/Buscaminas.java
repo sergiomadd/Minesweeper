@@ -1,5 +1,6 @@
 package com;
 
+import com.Graphics.Coordenada;
 import com.Graphics.VistaInicial;
 import com.Graphics.VistaJuego;
 
@@ -30,9 +31,11 @@ public class Buscaminas
 	{	
 		this.dificultad = 1;
 		observable = new Observable();
+		//inicializar vistaInicial como hacer new de un JFrame
 		crearTablero();
 		vistaInicial = new VistaInicial();
-
+		observable = new Observable();
+		
 	}
 	
 	public void crearTablero()
@@ -54,18 +57,20 @@ public class Buscaminas
 		}
 	}
 	
-	public void acabarPartida()
+	public void clicarCasilla(Coordenada coord, String click) 
 	{
-		//VistaJuego.dispose();
 	}
 	
-	public Tablero getTablero()
+	public void perder()
 	{
-		return this.tablero;
+		//tablero.revelarBombas();
 	}
 	
-	//Ganar
-	//al acabar ovolver a llamar a iniciar partida.
-	//clases de estado de casillas -> Sergio G
-	//vista inicial
+	public void ganar() 
+	{
+		//se cierra la pantsalla de bombas y se habra pantalla ganar
+	}
+	
+	
+	
 }

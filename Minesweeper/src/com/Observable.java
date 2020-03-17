@@ -1,7 +1,6 @@
 package com;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Observable 
 {	
@@ -26,11 +25,7 @@ public class Observable
 	
 	public void notifyObservers()
 	{
-		Iterator<Observer> itr = observers.iterator();
-		while(itr.hasNext())
-		{
-			itr.next().update();
-		}
+		
 	}
 	
 	public void setChanged()
