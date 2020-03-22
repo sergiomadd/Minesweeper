@@ -3,6 +3,7 @@ package com;
 public abstract class Casilla 
 {
 	private boolean visible;
+	private Estado estado;
 	
 	public Casilla()
 	{
@@ -14,6 +15,11 @@ public abstract class Casilla
 		this.visible = true;
 		return true;
 		//cambiar2
+	}
+	
+	public void setEstado(Estado pEstado)
+	{
+		this.estado = pEstado;
 	}
 	
 	public void print()
