@@ -18,6 +18,7 @@ public class CasillaVacia extends Casilla
 		{
 			state = "bandera";
 		}
+		return state;
 	}
 	
 	public void print()
