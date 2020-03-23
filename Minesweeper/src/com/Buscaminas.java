@@ -60,7 +60,6 @@ public class Buscaminas
 	public void clicarCasilla(Coordenada coord, String click) 
 	{
 		tablero.mostrarCasilla(coord.getX(), coord.getY(), click);
-		tablero.notifyObservers(coord);
 	}
 	
 	public VistaJuego getVistaJuego()

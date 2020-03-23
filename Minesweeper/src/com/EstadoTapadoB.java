@@ -10,7 +10,6 @@ public class EstadoTapadoB implements Estado
 	
 	public boolean clickIzquierdo(Casilla cas)
 	{
-		Buscaminas.getBuscaminas().acabarPartida();
 		return true;
 	}
 	

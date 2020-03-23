@@ -2,38 +2,27 @@ package com.Graphics;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-
-import com.Buscaminas;
-import com.Observer;
-import com.Tablero;
-
 import java.awt.GridLayout;
-import java.awt.Image;
-
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import java.awt.GridBagLayout;
-import javax.swing.JLabel;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
-import java.util.EventListener;
 
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
+import com.Observable;
+import com.Observer;
 
 public class VistaJuego extends JFrame implements Observer{
 	private JButton[][] posMinas = null;
@@ -62,34 +51,46 @@ public class VistaJuego extends JFrame implements Observer{
 		});
 	}
 	
-	public void update(Observer tab, Coordenada[] cambios) {
-		for( Coordenada c: cambios) {
-			int x=c.getX();
-			int y=c.getY();
+	public void update(Observable tab, int x, int y) {
+			JButton boton = posMinas[x][y];
 			
 			//String mostrar = tab.getMostrar(x,y);
 			String mostrar = "vacio";
 			if (mostrar=="vacio"){
 				posMinas[x][y].setBackground(gris);
 				posMinas[x][y].setBorder(new LineBorder(grisBorde));
+
+				boton.setBackground(gris);
+				boton.setBorder(new LineBorder(grisBorde));
 			}
 			else if(mostrar=="numero") {
+
 				//tab.getMatriz()[x][y].getNum();
+
+				//int num = tab.getMatriz()[x][y].getNum();
+				boton.setBackground(gris);
+				boton.setBorder(new LineBorder(grisBorde));
+				boton.setText("num");
+				
+
 			}
 			else if(mostrar=="bandera") {
-				//muestra imagen bandera
+				boton.setIcon(new ImageIcon(getClass().getResource("flag_trasp.png").getPath()));
 			}
 			else if(mostrar=="bomba") {
 				//muestra bomba en x,y fondo rojo
-				
+
+				boton.setIcon(new ImageIcon(getClass().getResource("bomba_trasp.png").getPath()));
+				boton.setBackground(new Color(255,0,0));
+			
 				//muestra resto de bombas fondo gris
+				boton.setBackground(gris);
 			}
 			else if(mostrar=="tapado") {
+				boton.setIcon(null);
 				
 			}
 			
-		}
-		
 	}
 
 	
@@ -149,8 +150,15 @@ public class VistaJuego extends JFrame implements Observer{
 		JButton btnReset = new JButton();
 		btnReset.setBackground(new Color(189,189,189));
 
+
 		//btnReset.setIcon(new ImageIcon(("..//Iconos//reset_trasp.png")));
 		btnReset.setIcon(new ImageIcon(("C://Users//innib//Pictures//reset_trasp.png")));
+
+		btnReset.setIcon(new ImageIcon(getClass().getResource("reset_trasp.png").getPath()));
+	
+		
+		
+		//btnReset.setIcon(new ImageIcon(("C://Users//innib//Pictures//reset_trasp.png")));
 		btnReset.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				reset();
