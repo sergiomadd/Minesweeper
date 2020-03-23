@@ -156,7 +156,7 @@ public class Tablero extends Observable
 	@Override
 	public void notifyObservers(int x, int y)
 	{
-		Buscaminas.getBuscaminas().getVistaJuego().update(this, int x, int y);
+		Buscaminas.getBuscaminas().getVistaJuego().update(this, x, y);
 	}
 	
 	public void printTablero()
