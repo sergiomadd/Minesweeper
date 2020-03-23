@@ -2,12 +2,12 @@ package com;
 
 public class EstadoDestapado implements Estado
 {
-	public void clickDerecho(Casilla cas)
+	public boolean clickDerecho(Casilla cas)
 	{
 		//no hacer nada, ya esta destapada
 	}
 	
-	public void clickIzquierdo(Casilla cas)
+	public boolean clickIzquierdo(Casilla cas)
 	{
 		//no hacer nada, ya esta destapada
 	}

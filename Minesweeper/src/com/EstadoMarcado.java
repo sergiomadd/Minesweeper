@@ -10,12 +10,12 @@ public class EstadoMarcado implements Estado
 		previo = pPrevio;
 	}
 	
-	public void clickDerecho(Casilla cas)
+	public boolean clickDerecho(Casilla cas)
 	{
 		cas.setEstado(previo);
 	}
 	
-	public void clickIzquierdo(Casilla cas)
+	public boolean clickIzquierdo(Casilla cas)
 	{
 		//no hacer nada, ya esta destapada
 	}
