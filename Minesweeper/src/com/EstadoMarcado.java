@@ -2,6 +2,7 @@ package src.com;
 
 public class EstadoMarcado implements Estado
 {
+	
 	private Estado previo;
 	
 	public EstadoMarcado(Estado pPrevio)
