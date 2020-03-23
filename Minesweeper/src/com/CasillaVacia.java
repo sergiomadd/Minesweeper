@@ -4,7 +4,7 @@ public class CasillaVacia extends Casilla
 {
 	public CasillaVacia()
 	{
-		this.state = new EstadoTapadoNB();
+		this.estado = new EstadoTapadoNB();
 	}
 	
 	public String getEstado()
@@ -19,17 +19,6 @@ public class CasillaVacia extends Casilla
 			state = "bandera";
 		}
 	}
-	
-	public void mostrarCasilla()
-	{
-		public void mostrarCasilla(Integer x, Integer y, String click)
-	}
-	
-	private void mostrarVecinos()
-	{
-		
-	}
-	
 	
 	public void print()
 	{

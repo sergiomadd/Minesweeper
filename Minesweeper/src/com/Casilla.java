@@ -2,22 +2,28 @@ package com;
 
 public abstract class Casilla 
 {
-	private Estado state;
+	protected Estado estado;
 	
 	public Casilla()
 	{
-		this.visible = false;
-	}
-	
-	public boolean setVisible(String p)
-	{
-		return true;
-		//cambiar2
+		
 	}
 	
 	public void setEstado(Estado pState)
 	{
-		this.state = pState;
+		this.estado = pState;
+	}
+	
+	public void hacerClick(String click)
+	{
+		if(click.equals("der"))
+		{
+			estado.clickDerecho(this);
+		}
+		else if(click.equals("izq"))
+		{
+			estado.clickIzquierdo(this);
+		}
 	}
 	
 	public void print()

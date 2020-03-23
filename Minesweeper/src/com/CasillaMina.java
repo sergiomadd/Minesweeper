@@ -4,7 +4,7 @@ public class CasillaMina extends Casilla
 {
 	public CasillaMina()
 	{
-		this.state = new EstadoTapadoB();
+		this.estado = new EstadoTapadoB();
 	}
 	
 	public String getEstado()
@@ -18,6 +18,8 @@ public class CasillaMina extends Casilla
 		{
 			state = "bandera";
 		}
+		
+		return state;
 	}
 	
 	public void print()
