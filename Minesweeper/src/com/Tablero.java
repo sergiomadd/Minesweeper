@@ -16,7 +16,7 @@ public class Tablero extends Observable
 		TableroFactory factory = TableroFactory.getTableroFactory();
 		contadorCasillas = tamX * tamY - numBombas;
 
-		matriz = new Casilla[tamY][tamX];
+		matriz = new Casilla[tamX][tamY];
 		//insertar minas
 		int randX;
 		int randY;
@@ -26,14 +26,7 @@ public class Tablero extends Observable
 		{
 			randX = rand1.nextInt(tamX);
 			randY = rand2.nextInt(tamY);
-			if(matriz[randX][randY] == null)
-			{
-				matriz[randX][randY] = factory.crearCasilla(-1);
-			}
-			else
-			{
-				i--;
-			}
+			matriz[randX][randY] = factory.crearCasilla(-1);
 		}
 		
 		//rellenar matriz
@@ -137,7 +130,7 @@ public class Tablero extends Observable
 			{
 				contadorCasillas--;
 				
-				notifyObservers(this, x, y);
+				notifyObservers(x, y);
 				
 				if(this.matriz[x][y] instanceof CasillaVacia)
 				{
@@ -161,11 +154,9 @@ public class Tablero extends Observable
 	}
 	
 	@Override
-	public void notifyObservers(Tablero tab, int x, int y)
+	public void notifyObservers(int x, int y)
 	{
-		//
 		Buscaminas.getBuscaminas().getVistaJuego().update(this, x, y);
-		//REcorrer el array primero
 	}
 	
 	public void printTablero()
@@ -180,9 +171,9 @@ public class Tablero extends Observable
 		}
 	}
 	
-	public String mostrar()
+	public String getMostrar(int x, int y)
 	{
-		//mirar los estados y determinar que hay que mostrar
+		return matriz[x][y].getEstado();
 	}
 	
 	public Casilla[][] getMatriz()
@@ -201,12 +192,11 @@ public class Tablero extends Observable
 					Casilla casilla = matriz[i][j];
 					if(casilla instanceof CasillaMina)
 					{
-						casilla.setVisible("izq");
+						notifyObservers(i, j);
 					}
 				}
 			}
 			System.out.println("Has perdido :(");
-			notifyObservers(x, y, click);
 		}
 		else
 		{

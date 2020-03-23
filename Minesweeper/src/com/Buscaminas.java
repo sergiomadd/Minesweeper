@@ -63,16 +63,6 @@ public class Buscaminas
 		tablero.notifyObservers(coord);
 	}
 	
-	public void perder()
-	{
-		//tablero.revelarBombas();
-	}
-	
-	public void ganar() 
-	{
-		//se cierra la pantsalla de bombas y se habra pantalla ganar
-	}
-	
 	public VistaJuego getVistaJuego()
 	{
 		return vistaJuego;
