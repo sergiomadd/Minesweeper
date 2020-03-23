@@ -2,6 +2,11 @@ package com;
 
 public class CasillaVacia extends Casilla 
 {
+	public CasillaVacia()
+	{
+		this.state = new EstadoTapadoNB();
+	}
+	
 	public String getEstado()
 	{
 		String state = "tapada";
