@@ -36,8 +36,15 @@ import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 public class VistaJuego extends JFrame implements Observer{
+	private JButton[][] posMinas = null;
 
 	private JPanel contentPane;
+	
+	
+	//Fondo destapado gris
+	Color gris = new Color(189,189,189);
+	//Borde fondo destapado
+	Color grisBorde = new Color(123,123,123);
 
 	/**
 	 * Launch the application.
@@ -58,20 +65,23 @@ public class VistaJuego extends JFrame implements Observer{
 	public void update(Observer tab, Coordenada[] cambios) {
 		for( Coordenada c: cambios) {
 			int x=c.getX();
-			int y=c.getY(); 	
-			mostrar = tab.getMostrar(x,y);
+			int y=c.getY();
+			
+			//String mostrar = tab.getMostrar(x,y);
+			String mostrar = "vacio";
 			if (mostrar=="vacio"){
-				posMinas[x][y].setColor();
-					
+				posMinas[x][y].setBackground(gris);
+				posMinas[x][y].setBorder(new LineBorder(grisBorde));
 			}
 			else if(mostrar=="numero") {
-				tab.getMatriz()[x][y].getNum();
+				//tab.getMatriz()[x][y].getNum();
 			}
 			else if(mostrar=="bandera") {
 				//muestra imagen bandera
 			}
 			else if(mostrar=="bomba") {
 				//muestra bomba en x,y fondo rojo
+				
 				//muestra resto de bombas fondo gris
 			}
 			else if(mostrar=="tapado") {
@@ -111,11 +121,13 @@ public class VistaJuego extends JFrame implements Observer{
 	 */
 	public VistaJuego(int x, int y) {
 		
-		JButton[][] posMinas = new JButton[x][y];
+		posMinas = new JButton[x][y];
+
+		
 			
 					
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 400, 400);
+		setBounds(100, 100, 420, 415);
 		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -134,10 +146,11 @@ public class VistaJuego extends JFrame implements Observer{
 		lblPuntos.setHorizontalAlignment(SwingConstants.CENTER);
 		Menu.add(lblPuntos);
 		
-		JButton btnReset = new JButton("RESET");
+		JButton btnReset = new JButton();
+		btnReset.setBackground(new Color(189,189,189));
 
-		//btnReset.setIcon(new ImageIcon(VistaJuego.class.getResource("/org/eclipse/jface/dialogs/images/help.png")));
-
+		//btnReset.setIcon(new ImageIcon(("..//Iconos//reset_trasp.png")));
+		btnReset.setIcon(new ImageIcon(("C://Users//innib//Pictures//reset_trasp.png")));
 		btnReset.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				reset();
@@ -153,21 +166,21 @@ public class VistaJuego extends JFrame implements Observer{
 		for(int i=0; i < x ; i++) {
 			for(int j=0; j < y; j++){
 				//a
-				JButton btnNewButton = new JButton("");
-				Grid.add(btnNewButton);
+				JButton btnCasilla = new JButton("");
+				Grid.add(btnCasilla);
 				Color sinmarcar = new Color(220,220,220);
-				btnNewButton.setBackground(sinmarcar);
-				btnNewButton.setBorder(new LineBorder(Color.WHITE));
+				btnCasilla.setBackground(sinmarcar);
+				btnCasilla.setBorder(new LineBorder(Color.WHITE));
 				
-				posMinas[i][j] = btnNewButton;
+				posMinas[i][j] = btnCasilla;
 				
 				
-				btnNewButton.addMouseListener(new MouseAdapter() {
+				btnCasilla.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent arg0) {
 						Coordenada coord=null;
 						for (int i = 0; i < x; i++) {
 						    for (int j = 0; j < y; j++) {
-						       if (posMinas[i][j] == btnNewButton) {
+						       if (posMinas[i][j] == btnCasilla) {
 						    	   coord = new Coordenada(i,j);
 						    	   
 						       }
@@ -177,17 +190,14 @@ public class VistaJuego extends JFrame implements Observer{
 						 coord.displayCoord();
 						
 						if (SwingUtilities.isLeftMouseButton(arg0)) {
-							Color marcado = new Color(169,169,169);
-							btnNewButton.setBackground(marcado);
-							btnNewButton.setBorder(new LineBorder(Color.DARK_GRAY));
+							btnCasilla.setBackground(gris);
+							btnCasilla.setBorder(new LineBorder(grisBorde));
 							//Buscaminas.getBuscaminas().clicarCasilla(coord,"izq");
 							
 						}
 						
 						else {
-							Color marcado = new Color(0,0,0);
-							btnNewButton.setBackground(marcado);
-							btnNewButton.setBorder(new LineBorder(Color.RED));
+							btnCasilla.setIcon(new ImageIcon(("C://Users//innib//Pictures//flag_trasp.png")));
 							//Buscaminas.getBuscaminas().clicarCasilla(coord,"der") ;
 						}
 						

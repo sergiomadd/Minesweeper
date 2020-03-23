@@ -16,7 +16,7 @@ public class Tablero extends Observable
 		TableroFactory factory = TableroFactory.getTableroFactory();
 		contadorCasillas = tamX * tamY - numBombas;
 
-		matriz = new Casilla[tamY][tamX];
+		matriz = new Casilla[tamX][tamY];
 		//insertar minas
 		int randX;
 		int randY;
@@ -26,14 +26,7 @@ public class Tablero extends Observable
 		{
 			randX = rand1.nextInt(tamX);
 			randY = rand2.nextInt(tamY);
-			if(matriz[randX][randY] == null)
-			{
-				matriz[randX][randY] = factory.crearCasilla(-1);
-			}
-			else
-			{
-				i--;
-			}
+			matriz[randX][randY] = factory.crearCasilla(-1);
 		}
 		
 		//rellenar matriz
