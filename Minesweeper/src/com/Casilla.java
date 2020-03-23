@@ -14,16 +14,18 @@ public abstract class Casilla
 		this.estado = pState;
 	}
 	
-	public void hacerClick(String click)
+	public boolean hacerClick(String click)
 	{
+		boolean devolver = false;
 		if(click.equals("der"))
 		{
-			estado.clickDerecho(this);
+			devolver = estado.clickDerecho(this);
 		}
 		else if(click.equals("izq"))
 		{
-			estado.clickIzquierdo(this);
+			devolver = estado.clickIzquierdo(this);
 		}
+		return devolver;
 	}
 	
 	public void print()

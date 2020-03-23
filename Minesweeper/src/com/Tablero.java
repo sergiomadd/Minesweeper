@@ -127,7 +127,7 @@ public class Tablero extends Observable
 		if(inBounds(x,y))
 		{
 			if(this.matriz[x][y].setVisible(click))
-			{
+			{	
 				contadorCasillas--;
 				
 				notifyObservers(x, y);
