@@ -2,7 +2,7 @@ package com;
 
 public abstract class Casilla 
 {
-	private boolean visible;
+	private Estado state;
 	
 	public Casilla()
 	{
@@ -11,9 +11,13 @@ public abstract class Casilla
 	
 	public boolean setVisible(String p)
 	{
-		this.visible = true;
 		return true;
 		//cambiar2
+	}
+	
+	public void setEstado(Estado pState)
+	{
+		this.state = pState;
 	}
 	
 	public void print()

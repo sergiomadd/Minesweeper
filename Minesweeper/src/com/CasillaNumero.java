@@ -7,6 +7,7 @@ public class CasillaNumero extends Casilla
 	public CasillaNumero(Integer pNum)
 	{
 		this.num = pNum;
+		this.state = new EstadoTapadoNB();
 	}
 	
 	public String getEstado()
