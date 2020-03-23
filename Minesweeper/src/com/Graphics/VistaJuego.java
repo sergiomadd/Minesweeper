@@ -62,28 +62,35 @@ public class VistaJuego extends JFrame implements Observer{
 		});
 	}
 	
-	public void update(Observer tab, Coordenada cambio) {
-			int x=cambio.getX();
-			int y=cambio.getY();
+	public void update(Observer tab, int x, int y) {
+			JButton boton = posMinas[x][y];
 			
 			//String mostrar = tab.getMostrar(x,y);
 			String mostrar = "vacio";
 			if (mostrar=="vacio"){
-				posMinas[x][y].setBackground(gris);
-				posMinas[x][y].setBorder(new LineBorder(grisBorde));
+				boton.setBackground(gris);
+				boton.setBorder(new LineBorder(grisBorde));
 			}
 			else if(mostrar=="numero") {
-				//tab.getMatriz()[x][y].getNum();
+				//int num = tab.getMatriz()[x][y].getNum();
+				boton.setBackground(gris);
+				boton.setBorder(new LineBorder(grisBorde));
+				boton.setText("num");
+				
 			}
 			else if(mostrar=="bandera") {
-				//muestra imagen bandera
+				boton.setIcon(new ImageIcon(getClass().getResource("flag_trasp.png").getPath()));
 			}
 			else if(mostrar=="bomba") {
 				//muestra bomba en x,y fondo rojo
-				
+				boton.setIcon(new ImageIcon(getClass().getResource("bomba_trasp.png").getPath()));
+				boton.setBackground(new Color(255,0,0));
+			
 				//muestra resto de bombas fondo gris
+				boton.setBackground(gris);
 			}
 			else if(mostrar=="tapado") {
+				boton.setIcon(null);
 				
 			}
 			
@@ -146,8 +153,11 @@ public class VistaJuego extends JFrame implements Observer{
 		JButton btnReset = new JButton();
 		btnReset.setBackground(new Color(189,189,189));
 
-		//btnReset.setIcon(new ImageIcon(("..//Iconos//reset_trasp.png")));
-		btnReset.setIcon(new ImageIcon(("C://Users//innib//Pictures//reset_trasp.png")));
+		btnReset.setIcon(new ImageIcon(getClass().getResource("reset_trasp.png").getPath()));
+	
+		
+		
+		//btnReset.setIcon(new ImageIcon(("C://Users//innib//Pictures//reset_trasp.png")));
 		btnReset.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				reset();
