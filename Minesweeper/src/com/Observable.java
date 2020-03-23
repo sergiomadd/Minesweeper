@@ -25,7 +25,7 @@ public class Observable
 		observers.remove(o);
 	}
 	
-	public void notifyObservers(Coordenada coord)
+	public void notifyObservers(int x, int y)
 	{
 		
 	}

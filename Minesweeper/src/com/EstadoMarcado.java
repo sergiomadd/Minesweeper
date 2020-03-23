@@ -1,4 +1,4 @@
-package src.com;
+package com;
 
 public class EstadoMarcado implements Estado
 {
