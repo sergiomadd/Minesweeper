@@ -13,11 +13,13 @@ public class EstadoMarcado implements Estado
 	public boolean clickDerecho(Casilla cas)
 	{
 		cas.setEstado(previo);
+		return true;
 	}
 	
 	public boolean clickIzquierdo(Casilla cas)
 	{
 		//no hacer nada, ya esta destapada
+		return false;
 	}
 	
 	public boolean esVisible()

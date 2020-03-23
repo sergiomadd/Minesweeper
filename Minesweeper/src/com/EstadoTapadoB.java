@@ -5,11 +5,13 @@ public class EstadoTapadoB implements Estado
 	public boolean clickDerecho(Casilla cas)
 	{
 		cas.setEstado(new EstadoMarcado(this));
+		return true;
 	}
 	
 	public boolean clickIzquierdo(Casilla cas)
 	{
 		Buscaminas.getBuscaminas().acabarPartida();
+		return true;
 	}
 	
 	public boolean esVisible()
