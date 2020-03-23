@@ -2,6 +2,8 @@ package com;
 
 import java.util.ArrayList;
 
+import com.Graphics.Coordenada;
+
 public class Observable 
 {	
 	private ArrayList<Observer> observers;
@@ -23,7 +25,7 @@ public class Observable
 		observers.remove(o);
 	}
 	
-	public void notifyObservers()
+	public void notifyObservers(Coordenada coord)
 	{
 		
 	}
