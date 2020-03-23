@@ -9,6 +9,19 @@ public class CasillaNumero extends Casilla
 		this.num = pNum;
 	}
 	
+	public String getEstado()
+	{
+		String state = "tapada";
+		if (this.estado.esVisible())
+		{
+			state = "numero";
+		}
+		if (this.estado.esMarcada())
+		{
+			state = "bandera";
+		}
+	}
+	
 	public void print()
 	{
 		System.out.print(num);

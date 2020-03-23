@@ -1,11 +1,17 @@
-package com;
+package src.com;
 
-public class EstadoDestapado implements Estado
+public class EstadoMarcado implements Estado
 {
+	private Estado previo;
+	
+	public EstadoMarcado(Estado pPrevio)
+	{
+		previo = pPrevio;
+	}
 	
 	public void clickDerecho(Casilla cas)
 	{
-		//no hacer nada, ya esta destapada
+		cas.setEstado(previo);
 	}
 	
 	public void clickIzquierdo(Casilla cas)
@@ -15,11 +21,11 @@ public class EstadoDestapado implements Estado
 	
 	public boolean esVisible()
 	{
-		return true;
+		return false;
 	}
 	
 	public boolean esMarcada()
 	{
-		return false;
+		return true;
 	}
 }

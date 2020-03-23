@@ -2,6 +2,18 @@ package com;
 
 public class CasillaVacia extends Casilla 
 {
+	public String getEstado()
+	{
+		String state = "tapada";
+		if (this.estado.esVisible())
+		{
+			state = "vacio";
+		}
+		if (this.estado.esMarcada())
+		{
+			state = "bandera";
+		}
+	}
 	
 	public void mostrarCasilla()
 	{
