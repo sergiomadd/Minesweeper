@@ -2,6 +2,7 @@ package com;
 
 public class EstadoTapadoNB implements Estado
 {
+	//Estado inicial
 	public boolean clickDerecho(Casilla cas)
 	{
 		cas.setEstado(new EstadoMarcado(this));

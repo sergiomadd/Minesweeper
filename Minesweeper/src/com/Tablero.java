@@ -124,18 +124,20 @@ public class Tablero extends Observable
 	
 	public void mostrarCasilla(Integer x, Integer y, String click)
 	{
+		//System.out.println("hola");
 		if(inBounds(x,y))
 		{
-			if(this.matriz[x][y].setVisible(click))
-			{	
-				contadorCasillas--;
-				
-				notifyObservers(x, y);
-				
-				if(this.matriz[x][y] instanceof CasillaVacia)
-				{
-					mostrarVecinos(x, y, click);
-				}
+			contadorCasillas--;
+			
+			//Esto deberia de actualizar los estados
+			matriz[x][y].hacerClick(click);
+			
+			notifyObservers(x, y);
+			
+			//Aqui deberia de mirarse si el estado de la casilla es destapado
+			if(this.matriz[x][y] instanceof CasillaVacia && !(this.matriz[x][y].getEstado2() instanceof EstadoDestapado))
+			{
+				mostrarVecinos(x, y, click);
 			}
 		}
 		
@@ -171,9 +173,20 @@ public class Tablero extends Observable
 		}
 	}
 	
+	@Override
 	public String getMostrar(int x, int y)
 	{
-		return matriz[x][y].getEstado();
+		String estado;
+		estado = matriz[x][y].getEstado();
+		
+		
+		//vacio
+		//numero
+		//bandera
+		//bomba
+		//tapado
+		
+		return estado;
 	}
 	
 	public Casilla[][] getMatriz()

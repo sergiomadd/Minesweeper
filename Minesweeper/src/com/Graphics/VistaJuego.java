@@ -21,6 +21,7 @@ import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import com.Buscaminas;
 import com.Observable;
 import com.Observer;
 
@@ -39,6 +40,7 @@ public class VistaJuego extends JFrame implements Observer{
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		Buscaminas.getBuscaminas().iniciarPartida();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -54,8 +56,8 @@ public class VistaJuego extends JFrame implements Observer{
 	public void update(Observable tab, int x, int y) {
 			JButton boton = posMinas[x][y];
 			
-			//String mostrar = tab.getMostrar(x,y);
-			String mostrar = "vacio";
+			String mostrar = tab.getMostrar(x,y);
+			//String mostrar = "vacio";
 			if (mostrar=="vacio"){
 				posMinas[x][y].setBackground(gris);
 				posMinas[x][y].setBorder(new LineBorder(grisBorde));
@@ -198,15 +200,13 @@ public class VistaJuego extends JFrame implements Observer{
 						 coord.displayCoord();
 						
 						if (SwingUtilities.isLeftMouseButton(arg0)) {
-							btnCasilla.setBackground(gris);
-							btnCasilla.setBorder(new LineBorder(grisBorde));
-							//Buscaminas.getBuscaminas().clicarCasilla(coord,"izq");
+							Buscaminas.getBuscaminas().clicarCasilla(coord,"izq");
 							
 						}
 						
 						else {
 							btnCasilla.setIcon(new ImageIcon(("C://Users//innib//Pictures//flag_trasp.png")));
-							//Buscaminas.getBuscaminas().clicarCasilla(coord,"der") ;
+							Buscaminas.getBuscaminas().clicarCasilla(coord,"der") ;
 						}
 						
 					}

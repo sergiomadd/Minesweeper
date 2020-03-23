@@ -7,6 +7,7 @@ public class CasillaMina extends Casilla
 		this.estado = new EstadoTapadoB();
 	}
 	
+	@Override
 	public String getEstado()
 	{
 		String state = "tapada";
@@ -18,7 +19,6 @@ public class CasillaMina extends Casilla
 		{
 			state = "bandera";
 		}
-		
 		return state;
 	}
 	

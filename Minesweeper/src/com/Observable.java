@@ -30,6 +30,11 @@ public class Observable
 		
 	}
 	
+	public String getMostrar(int x, int y)
+	{
+		return "";
+	}
+	
 	public void setChanged()
 	{
 		this.changed = true;

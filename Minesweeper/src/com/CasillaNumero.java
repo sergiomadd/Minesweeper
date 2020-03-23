@@ -10,6 +10,7 @@ public class CasillaNumero extends Casilla
 		this.estado = new EstadoTapadoNB();
 	}
 	
+	@Override
 	public String getEstado()
 	{
 		String state = "tapada";

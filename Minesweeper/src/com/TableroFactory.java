@@ -26,10 +26,14 @@ public class TableroFactory
 		if(tipo < 0)
 		{
 			casilla = new CasillaMina();
+			Estado inicialB = new EstadoTapadoB();
+			casilla.setEstado(inicialB);
 		}
 		if(tipo == 0)
 		{
 			casilla = new CasillaVacia();
+			Estado inicial = new EstadoTapadoNB();
+			casilla.setEstado(inicial);
 		}
 		if(tipo > 0)
 		{
