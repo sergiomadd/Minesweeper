@@ -62,10 +62,9 @@ public class VistaJuego extends JFrame implements Observer{
 		});
 	}
 	
-	public void update(Observer tab, Coordenada[] cambios) {
-		for( Coordenada c: cambios) {
-			int x=c.getX();
-			int y=c.getY();
+	public void update(Observer tab, Coordenada cambio) {
+			int x=cambio.getX();
+			int y=cambio.getY();
 			
 			//String mostrar = tab.getMostrar(x,y);
 			String mostrar = "vacio";
@@ -88,8 +87,6 @@ public class VistaJuego extends JFrame implements Observer{
 				
 			}
 			
-		}
-		
 	}
 
 	
