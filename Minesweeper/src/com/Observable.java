@@ -2,7 +2,7 @@ package com;
 
 import java.util.ArrayList;
 
-import com.Graphics.Coordenada;
+import javax.swing.JButton;
 
 public class Observable 
 {	
@@ -27,7 +27,10 @@ public class Observable
 	
 	public void notifyObservers(int x, int y)
 	{
-		
+		for(Observer o : observers)
+		{
+			o.update(this, x, y);
+		}
 	}
 	
 	public String getMostrar(int x, int y)

@@ -1,6 +1,6 @@
 package com;
 
-import com.Graphics.Coordenada;
+import javax.swing.JButton;
 
 public interface Observer 
 {

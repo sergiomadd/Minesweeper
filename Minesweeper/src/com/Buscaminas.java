@@ -1,5 +1,7 @@
 package com;
 
+import javax.swing.JButton;
+
 import com.Graphics.Coordenada;
 import com.Graphics.VistaInicial;
 import com.Graphics.VistaJuego;
@@ -31,12 +33,11 @@ public class Buscaminas
 	{	
 		this.dificultad = 1;
 		observable = new Observable();
-		//inicializar vistaInicial como hacer new de un JFrame
 		crearTablero();
 		tablero.printTablero();
 		vistaInicial = new VistaInicial();
 		observable = new Observable();
-		vistaJuego = new VistaJuego(7, 10);
+		//vistaJuego = new VistaJuego(7, 10);
 	}
 	
 	public void crearTablero()
@@ -61,6 +62,7 @@ public class Buscaminas
 	public void clicarCasilla(Coordenada coord, String click) 
 	{
 		tablero.mostrarCasilla(coord.getX(), coord.getY(), click);
+		//tablero.notifyObservers(coord.getX(), coord.getY());
 	}
 	
 	public VistaJuego getVistaJuego()

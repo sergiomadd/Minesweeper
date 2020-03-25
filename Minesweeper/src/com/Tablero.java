@@ -2,7 +2,7 @@ package com;
 
 import java.util.Random;
 
-import com.Graphics.Coordenada;
+import javax.swing.JButton;
 
 public class Tablero extends Observable
 {
@@ -132,7 +132,10 @@ public class Tablero extends Observable
 		{
 			if(this.matriz[x][y] instanceof CasillaVacia && (this.matriz[x][y].getEstado2() instanceof EstadoTapadoNB))
 			{
-				if(matriz[x][y].hacerClick(click)) {contadorCasillas--;}
+				if(matriz[x][y].hacerClick(click)) {
+					//contadorCasillas--;}
+				}
+				notifyObservers(x, y);
 				mostrarVecinos(x, y, click);
 			}
 			else
@@ -140,13 +143,12 @@ public class Tablero extends Observable
 				if(this.matriz[x][y].getEstado2() instanceof EstadoTapadoNB)
 				{
 					System.out.println("Tapado");
+					if(matriz[x][y].hacerClick(click)) {contadorCasillas--;}
+					
+					notifyObservers(x, y);
 				}
-
-				if(matriz[x][y].hacerClick(click)) {contadorCasillas--;}
 				
-				notifyObservers(x, y);
-				
-				if(this.matriz[x][y].getEstado2() instanceof EstadoDestapado)
+				if(this.matriz[x][y].getEstado2() instanceof EstadoDestapado)	
 				{
 					System.out.println("Destapado");
 				}
@@ -167,11 +169,11 @@ public class Tablero extends Observable
 		}
 	}
 	
-	@Override
+	/*@Override
 	public void notifyObservers(int x, int y)
 	{
 		Buscaminas.getBuscaminas().getVistaJuego().update(this, x, y);
-	}
+	}*/
 	
 	public void printTablero()
 	{
@@ -216,7 +218,8 @@ public class Tablero extends Observable
 					Casilla casilla = matriz[i][j];
 					if(casilla instanceof CasillaMina)
 					{
-						notifyObservers(i, j);
+						
+						//mostrarCasilla(i, j, "der");
 					}
 				}
 			}
