@@ -13,7 +13,7 @@ public class CasillaMina extends Casilla
 		String state = "tapada";
 		if (this.estado.esVisible())
 		{
-			state = "mina";
+			state = "bomba";
 		}
 		if (this.estado.esMarcada())
 		{
