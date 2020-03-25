@@ -33,7 +33,7 @@ public class Buscaminas
 		observable = new Observable();
 		//inicializar vistaInicial como hacer new de un JFrame
 		crearTablero();
-		
+		tablero.printTablero();
 		vistaInicial = new VistaInicial();
 		observable = new Observable();
 		vistaJuego = new VistaJuego(7, 10);

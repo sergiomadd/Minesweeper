@@ -58,10 +58,11 @@ public class VistaJuego extends JFrame implements Observer{
 			
 			String mostrar = tab.getMostrar(x,y);
 			//String mostrar = "vacio";
+			System.out.println(Integer.toString(x) + " ," + Integer.toString(y));
+			System.out.println(mostrar);
 			if (mostrar=="vacio"){
 				posMinas[x][y].setBackground(gris);
 				posMinas[x][y].setBorder(new LineBorder(grisBorde));
-
 				boton.setBackground(gris);
 				boton.setBorder(new LineBorder(grisBorde));
 			}
@@ -89,13 +90,9 @@ public class VistaJuego extends JFrame implements Observer{
 				boton.setBackground(gris);
 			}
 			else if(mostrar=="tapado") {
-				boton.setIcon(null);
-				
-			}
-			
+				boton.setIcon(null);	
+			}		
 	}
-
-	
 	
 	public void reset() {
 		contentPane.removeAll();
@@ -111,24 +108,14 @@ public class VistaJuego extends JFrame implements Observer{
 				}
 			}
 		});
-		
-		}
-
-	
-	
-		
-		
+	}
 
 	/**
 	 * Create the frame.
 	 */
 	public VistaJuego(int x, int y) {
-		
 		posMinas = new JButton[x][y];
-
-		
 			
-					
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 420, 415);
 		setResizable(false);
@@ -164,7 +151,6 @@ public class VistaJuego extends JFrame implements Observer{
 		btnReset.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				reset();
-				
 			}
 		});
 
@@ -175,7 +161,6 @@ public class VistaJuego extends JFrame implements Observer{
 		Menu.add(lblTiempo);
 		for(int i=0; i < x ; i++) {
 			for(int j=0; j < y; j++){
-				//a
 				JButton btnCasilla = new JButton("");
 				Grid.add(btnCasilla);
 				Color sinmarcar = new Color(220,220,220);
@@ -184,7 +169,6 @@ public class VistaJuego extends JFrame implements Observer{
 				
 				posMinas[i][j] = btnCasilla;
 				
-				
 				btnCasilla.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent arg0) {
 						Coordenada coord=null;
@@ -192,7 +176,6 @@ public class VistaJuego extends JFrame implements Observer{
 						    for (int j = 0; j < y; j++) {
 						       if (posMinas[i][j] == btnCasilla) {
 						    	   coord = new Coordenada(i,j);
-						    	   
 						       }
 						    }	   
 						   
@@ -206,16 +189,10 @@ public class VistaJuego extends JFrame implements Observer{
 						
 						else {
 							btnCasilla.setIcon(new ImageIcon(("C://Users//innib//Pictures//flag_trasp.png")));
-							Buscaminas.getBuscaminas().clicarCasilla(coord,"der") ;
-						}
-						
+							Buscaminas.getBuscaminas().clicarCasilla(coord,"der");
+						}	
 					}
-
-					
-
-					
 				});
-				
 			}
 		}
 		
@@ -223,15 +200,10 @@ public class VistaJuego extends JFrame implements Observer{
 	    	SimpleDateFormat f = new SimpleDateFormat("mm:ss");
 	    	long start = System.currentTimeMillis();
 	    	
-	    	
-
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
 	          lblTiempo.setText(String.valueOf(f.format((System.currentTimeMillis()-start))));
 	        }
 	      }).start();
 	    }
-		
-	
-
 }

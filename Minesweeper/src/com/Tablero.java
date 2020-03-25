@@ -91,6 +91,7 @@ public class Tablero extends Observable
 	
 	private void mostrarVecinos(int posX, int posY, String click)
 	{
+		System.out.println("Mostrando vecinos");
 		int count = 0;
 		
 		int[] x = new int[8];
@@ -117,27 +118,38 @@ public class Tablero extends Observable
 		{
 			if(inBounds(x[i],y[i]))
 			{
-				mostrarCasilla(x[i], y[i], click);
+				if(this.matriz[x[i]][y[i]].getEstado2() instanceof EstadoTapadoNB) 
+				{
+					mostrarCasilla(x[i], y[i], click);
+				}
 			}
 		}
 	}
 	
 	public void mostrarCasilla(Integer x, Integer y, String click)
 	{
-		//System.out.println("hola");
 		if(inBounds(x,y))
 		{
-			contadorCasillas--;
-			
-			//Esto deberia de actualizar los estados
-			matriz[x][y].hacerClick(click);
-			
-			notifyObservers(x, y);
-			
-			//Aqui deberia de mirarse si el estado de la casilla es destapado
-			if(this.matriz[x][y] instanceof CasillaVacia && !(this.matriz[x][y].getEstado2() instanceof EstadoDestapado))
+			if(this.matriz[x][y] instanceof CasillaVacia && (this.matriz[x][y].getEstado2() instanceof EstadoTapadoNB))
 			{
+				if(matriz[x][y].hacerClick(click)) {contadorCasillas--;}
 				mostrarVecinos(x, y, click);
+			}
+			else
+			{	
+				if(this.matriz[x][y].getEstado2() instanceof EstadoTapadoNB)
+				{
+					System.out.println("Tapado");
+				}
+
+				if(matriz[x][y].hacerClick(click)) {contadorCasillas--;}
+				
+				notifyObservers(x, y);
+				
+				if(this.matriz[x][y].getEstado2() instanceof EstadoDestapado)
+				{
+					System.out.println("Destapado");
+				}
 			}
 		}
 		
@@ -179,7 +191,6 @@ public class Tablero extends Observable
 		String estado;
 		estado = matriz[x][y].getEstado();
 		
-		
 		//vacio
 		//numero
 		//bandera
@@ -216,5 +227,6 @@ public class Tablero extends Observable
 			//mostrar puntuacion.
 			System.out.println("Has ganado :D");
 		}
+		//Buscaminas.getBuscaminas().getVistaJuego().reset();
 	}
 }
