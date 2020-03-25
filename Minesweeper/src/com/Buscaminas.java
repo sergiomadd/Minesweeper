@@ -61,8 +61,8 @@ public class Buscaminas
 	
 	public void clicarCasilla(Coordenada coord, String click) 
 	{
-		tablero.mostrarCasilla(coord.getX(), coord.getY(), click);
-		//tablero.notifyObservers(coord.getX(), coord.getY());
+		//tablero.mostrarCasilla(coord.getX(), coord.getY(), click);
+		tablero.notifyObservers(coord.getX(), coord.getY());
 	}
 	
 	public VistaJuego getVistaJuego()

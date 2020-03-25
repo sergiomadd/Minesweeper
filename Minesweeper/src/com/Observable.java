@@ -33,6 +33,12 @@ public class Observable
 		}
 	}
 	
+	public void mostrarCasilla(Integer x, Integer y, String click)
+	{
+		
+	}
+	
+	
 	public String getMostrar(int x, int y)
 	{
 		return "";
