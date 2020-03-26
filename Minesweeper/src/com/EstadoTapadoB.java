@@ -11,6 +11,7 @@ public class EstadoTapadoB implements Estado
 	public boolean clickIzquierdo(Casilla cas)
 	{
 		cas.setEstado(new EstadoDestapado());
+		
 		return true;
 	}
 	

@@ -1,19 +1,12 @@
 package com;
 
-import javax.swing.JButton;
-
 import com.Graphics.Coordenada;
-import com.Graphics.VistaInicial;
-import com.Graphics.VistaJuego;
 
 public class Buscaminas 
 {
 	private int dificultad;
 	private Tablero tablero;
 	private static Buscaminas miBuscaminas;
-	private VistaJuego vistaJuego;
-	private VistaInicial vistaInicial;
-	private Observable observable;
 	
 	private Buscaminas()
 	{
@@ -32,12 +25,8 @@ public class Buscaminas
 	public void iniciarPartida()
 	{	
 		this.dificultad = 1;
-		observable = new Observable();
 		crearTablero();
 		tablero.printTablero();
-		vistaInicial = new VistaInicial();
-		observable = new Observable();
-		//vistaJuego = new VistaJuego(7, 10);
 	}
 	
 	public void crearTablero()
@@ -61,13 +50,12 @@ public class Buscaminas
 	
 	public void clicarCasilla(Coordenada coord, String click) 
 	{
-		//tablero.mostrarCasilla(coord.getX(), coord.getY(), click);
-		tablero.notifyObservers(coord.getX(), coord.getY());
+		tablero.mostrarCasilla(coord.getX(), coord.getY(), click);
 	}
 	
-	public VistaJuego getVistaJuego()
+	public Tablero getTab()
 	{
-		return vistaJuego;
+		return tablero;
 	}
 	
 	

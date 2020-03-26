@@ -2,12 +2,10 @@ package com;
 
 import java.util.Random;
 
-import javax.swing.JButton;
-
-public class Tablero extends Observable
+@SuppressWarnings("deprecation")
+public class Tablero extends java.util.Observable
 {
 	private Casilla[][] matriz;
-	private int dificultad;
 	
 	private int contadorCasillas;
 	
@@ -44,7 +42,7 @@ public class Tablero extends Observable
 	
 	
 	private int comprobarVecinos(int posX, int posY)
-	{//
+	{
 		int count = 0;
 		
 		int[] x = new int[8];
@@ -91,9 +89,6 @@ public class Tablero extends Observable
 	
 	private void mostrarVecinos(int posX, int posY, String click)
 	{
-		System.out.println("Mostrando vecinos");
-		int count = 0;
-		
 		int[] x = new int[8];
 		x[0] = posX;
 		x[1] = posX;
@@ -126,54 +121,57 @@ public class Tablero extends Observable
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void mostrarCasilla(Integer x, Integer y, String click)
 	{
+		
 		if(inBounds(x,y))
 		{
 			if(this.matriz[x][y] instanceof CasillaVacia && (this.matriz[x][y].getEstado2() instanceof EstadoTapadoNB))
 			{
-				if(matriz[x][y].hacerClick(click)) {
-					//contadorCasillas--;}
+				if(matriz[x][y].hacerClick(click)) 
+				{
+					contadorCasillas--;
 				}
-				notifyObservers(x, y);
+				String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y))};
+				setChanged();
+				notifyObservers(datos);
 				mostrarVecinos(x, y, click);
 			}
 			else
 			{	
 				if(this.matriz[x][y].getEstado2() instanceof EstadoTapadoNB)
 				{
-					System.out.println("Tapado");
+					//System.out.println("Tapado");
 					if(matriz[x][y].hacerClick(click)) {contadorCasillas--;}
-					
-					notifyObservers(x, y);
+					String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y))};
+					setChanged();
+					notifyObservers(datos);
 				}
 				
-				if(this.matriz[x][y].getEstado2() instanceof EstadoDestapado)	
+				/*if(this.matriz[x][y].getEstado2() instanceof EstadoDestapado)	
 				{
-					System.out.println("Destapado");
-				}
+					//System.out.println("Destapado");
+				}*/
 			}
-		}
-		
-		if(this.matriz[x][y] instanceof CasillaMina)
-		{
-			finalizarPartida(false);
-		}
-		
-		else 
-		{
-			if(contadorCasillas <= 0)
+			
+			if(this.matriz[x][y] instanceof CasillaMina)
 			{
-				finalizarPartida(true);
+				//Pregunta: Acceder a este metodo asi, o llamarlo desde la propia casillamina pasando por buscaminas.
+				finalizarPartida(false);
+			}
+			
+			else 
+			{
+				if(contadorCasillas <= 0)
+				{
+					finalizarPartida(true);
+				}
 			}
 		}
 	}
 	
-	/*@Override
-	public void notifyObservers(int x, int y)
-	{
-		Buscaminas.getBuscaminas().getVistaJuego().update(this, x, y);
-	}*/
+
 	
 	public void printTablero()
 	{
@@ -181,24 +179,16 @@ public class Tablero extends Observable
 		{
 			for (int j = 0; j < matriz[i].length; j++)
 			{
-				matriz[i][j].print(); //arreglar
+				matriz[i][j].print();
 			}
 			System.out.println();
 		}
 	}
 	
-	@Override
-	public String getMostrar(int x, int y)
+	private String getMostrar(int x, int y)
 	{
 		String estado;
 		estado = matriz[x][y].getEstado();
-		
-		//vacio
-		//numero
-		//bandera
-		//bomba
-		//tapado
-		
 		return estado;
 	}
 	
@@ -207,7 +197,8 @@ public class Tablero extends Observable
 		return matriz;
 	}
 	
-	public void finalizarPartida(boolean ganado)
+	@SuppressWarnings("deprecation")
+	public void finalizarPartida(boolean ganado) 
 	{
 		if(ganado == false)
 		{
@@ -218,8 +209,10 @@ public class Tablero extends Observable
 					Casilla casilla = matriz[i][j];
 					if(casilla instanceof CasillaMina)
 					{
-						
-						//mostrarCasilla(i, j, "der");
+						casilla.hacerClick("izq");
+						String[] datos = {Integer.toString(i), Integer.toString(j), getMostrar(i,j), Integer.toString(getNum(i,j))};
+						setChanged();
+						notifyObservers(datos);
 					}
 				}
 			}
@@ -230,6 +223,10 @@ public class Tablero extends Observable
 			//mostrar puntuacion.
 			System.out.println("Has ganado :D");
 		}
-		//Buscaminas.getBuscaminas().getVistaJuego().reset();
+	}
+	
+	private int getNum(int x, int y)
+	{
+		return matriz[x][y].getNum();
 	}
 }

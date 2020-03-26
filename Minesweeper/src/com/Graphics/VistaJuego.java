@@ -2,7 +2,6 @@ package com.Graphics;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -10,10 +9,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
-
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,14 +23,15 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import com.Buscaminas;
-import com.Observable;
-import com.Observer;
+import com.Controlador;
+import com.Tablero;
 
-public class VistaJuego extends JFrame implements Observer{
+@SuppressWarnings("deprecation")
+public class VistaJuego extends JFrame implements java.util.Observer{
 	private JButton[][] posMinas = null;
 
 	private JPanel contentPane;
-	
+	private int cont = 0;
 	private JPanel Grid;
 	
 	//Fondo destapado gris
@@ -46,8 +46,8 @@ public class VistaJuego extends JFrame implements Observer{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VistaJuego frame = new VistaJuego(7,10);
-					frame.setVisible(true);
+					//VistaJuego frame = new VistaJuego(7,10);
+					//frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,85 +55,62 @@ public class VistaJuego extends JFrame implements Observer{
 		});
 	}
 	
-	public void update(Observable tab, int x, int y) {
-			JButton boton = posMinas[x][y];
-			//JButton boton1 = (JButton) Grid.getComponentAt(x,y);
-			System.out.println(x);
-			System.out.println(y);
-			System.out.println(posMinas[x][y].getActionCommand());
-			System.out.println(posMinas[x][y].getText());
-			System.out.println("Longitud: "+ Grid.getComponents().length);
-
-			posMinas[x][y].setText("B");
-			posMinas[x][y].repaint();
-			posMinas[x][y].setBackground(new Color(x,0,y));
-			for(int i=0;i < Grid.getComponents().length;i++)
-			{
-				JButton boton2 = (JButton) Grid.getComponent(i);
-				System.out.println("- "+boton2.getBackground().getRed()+" "+boton2.getBackground().getBlue());
-			}
+	@Override
+	public void update(Observable tab, Object datos2) {
+			int x,y;
+			String[] datos = (String[]) datos2;
 			
-			//posMinas[x][y].setBackground(new Color(255,0,0));
-			//boton1.setBackground(gris);
-			/*for(int i=0;i < Grid.getComponents().length;i++)
-			{
-				if(i == x*y)//Revisar
-					{
-						JButton boton2 = (JButton) Grid.getComponent(i);
-						String mostrar = tab.getMostrar(x,y);
-						System.out.println(Integer.toString(x) + "," + Integer.toString(y));
-						System.out.println("vista " + mostrar);
-						if (mostrar.equals("vacio")){
-							//boton2.setBackground(gris);
-							//Grid.getComponent(i).setBorder(new LineBorder(grisBorde));
-						}
-						else if(mostrar.equals("numero")) {
-							//tab.getMatriz()[x][y].getNum();
-							//int num = tab.getMatriz()[x][y].getNum();
-							//boton2.setBackground(gris);
-							//Grid.getComponent(i).setBorder(new LineBorder(grisBorde));
-							//boton2.setText("num");
-						}
-						else if(mostrar.equals("bandera")) {
-							//boton2.setIcon(new ImageIcon(getClass().getResource("flag_trasp.png").getPath()));
-						}
-						else if(mostrar.equals("bomba")) {
-							//muestra bomba en x,y fondo rojo
-
-							//boton2.setIcon(new ImageIcon(getClass().getResource("bomba_trasp.png").getPath()));
-							//boton2.setBackground(new Color(255,0,0));
-						
-							//muestra resto de bombas fondo gris
-							//boton2.setBackground(gris);
-						}
-						else if(mostrar.equals("tapado")) {
-							//boton2.setIcon(null);	
-						}		
-					}
-				//Grid.add(boton, i);
-			}*/
+			x = Integer.parseInt(datos[0]);
+			y = Integer.parseInt(datos[1]);
+			//System.out.println(x+""+y);
+			JButton boton = posMinas[x][y];
+			String mostrar = datos[2];
+			
+			if (mostrar.equals("vacio")){
+				boton.setBackground(gris);
+				boton.setBorder(new LineBorder(grisBorde));
+			}
+			else if(mostrar.equals("numero")) {
+				boton.setBackground(gris);
+				boton.setBorder(new LineBorder(grisBorde));
+				boton.setText(datos[3]);
+			}
+			else if(mostrar.equals("bandera")) {
+				boton.setIcon(new ImageIcon(getClass().getResource("flag_trasp.png").getPath()));
+			}
+			else if(mostrar.equals("bomba")) {
+				//muestra bomba en x,y fondo rojo
+				if(cont==0)
+				{
+					boton.setIcon(new ImageIcon(getClass().getResource("bomba_trasp.png").getPath()));
+					boton.setBackground(new Color(255,0,0));
+					cont++;
+				}
+				else 
+				{
+					//muestra resto de bombas fondo gris
+					boton.setIcon(new ImageIcon(getClass().getResource("bomba_trasp.png").getPath()));
+					boton.setBackground(gris);
+				}
+			}
+			else if(mostrar.equals("tapado")) {
+				boton.setIcon(null);	
+			}		
 	}
-	
+
 	public void reset() {
 		contentPane.removeAll();
 		dispose();
 		//Como hacer para que no haya que abrir una ventana nueva entera cada vez
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VistaJuego frame = new VistaJuego(7,10);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		
+		Controlador.getControlador().iniciarPartida();
 	}
 
 	/**
 	 * Create the frame.
 	 */
-	public VistaJuego(int x, int y) {
+	public VistaJuego(int x, int y, Observable tab) {
+		tab.addObserver(this);
 		posMinas = new JButton[x][y];
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 420, 415);
@@ -159,15 +136,10 @@ public class VistaJuego extends JFrame implements Observer{
 		JButton btnReset = new JButton();
 		btnReset.setBackground(new Color(189,189,189));
 
-
-		//btnReset.setIcon(new ImageIcon(("..//Iconos//reset_trasp.png")));
-		btnReset.setIcon(new ImageIcon(("C://Users//innib//Pictures//reset_trasp.png")));
-
 		btnReset.setIcon(new ImageIcon(getClass().getResource("reset_trasp.png").getPath()));
-	
+
 		
 		
-		//btnReset.setIcon(new ImageIcon(("C://Users//innib//Pictures//reset_trasp.png")));
 		btnReset.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				reset();
@@ -189,19 +161,6 @@ public class VistaJuego extends JFrame implements Observer{
 				btnCasilla.setBorder(new LineBorder(Color.WHITE));
 				
 				posMinas[i][j] = btnCasilla;
-				posMinas[i][j].setBackground(new Color(15*i,0,15*j));
-				
-				//System.out.println(Integer.toString(i) + Integer.toString(j));
-				//System.out.println("Height: " + Grid.getHeight());
-				//System.out.println("Width: " + Grid.getWidth());
-				System.out.println(Grid.getSize().getHeight());
-				System.out.println(Grid.getSize().getWidth());
-				/*System.out.println("1 ES BOTON EL DEL \n\n\n");
-				if(posMinas[i][j] == (JButton) Grid.getComponentAt(i,j))
-				{
-					System.out.println("2 ES BOTON EL DEL \n\n\n");
-				}*/
-				
 				
 				btnCasilla.addMouseListener(new MouseAdapter() {
 					public void mouseClicked(MouseEvent arg0) {
@@ -215,13 +174,12 @@ public class VistaJuego extends JFrame implements Observer{
 						  }
 						
 						if (SwingUtilities.isLeftMouseButton(arg0)) {
-							Buscaminas.getBuscaminas().clicarCasilla(coord,"izq");
-							
+							Controlador.getControlador().clicarCasilla(coord, "izq");
 						}
 						
 						else {
 							btnCasilla.setIcon(new ImageIcon(("C://Users//innib//Pictures//flag_trasp.png")));
-							Buscaminas.getBuscaminas().clicarCasilla(coord,"der");
+							Controlador.getControlador().clicarCasilla(coord, "der");
 						}	
 					}
 				});

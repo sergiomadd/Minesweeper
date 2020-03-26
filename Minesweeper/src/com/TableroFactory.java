@@ -7,7 +7,7 @@ public class TableroFactory
 	
 	private TableroFactory()
 	{
-		
+		//Vacio
 	}
 	
 	public static synchronized TableroFactory getTableroFactory() 

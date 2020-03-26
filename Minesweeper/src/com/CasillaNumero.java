@@ -25,6 +25,13 @@ public class CasillaNumero extends Casilla
 		return state;
 	}
 	
+	@Override
+	public int getNum()
+	{
+		return num;
+	}
+	
+	
 	public void print()
 	{
 		System.out.print(num);

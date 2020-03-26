@@ -6,7 +6,6 @@ public abstract class Casilla
 	
 	public Casilla()
 	{
-		//
 		Estado inicial = new EstadoTapadoNB();
 		setEstado(inicial);
 	}
@@ -40,6 +39,12 @@ public abstract class Casilla
 		
 		return devolver;
 	}
+	
+	public int getNum() 
+	{
+		return 0;
+	}
+	
 	
 	public void print()
 	{
