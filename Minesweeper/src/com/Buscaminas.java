@@ -5,6 +5,7 @@ import com.Graphics.Coordenada;
 public class Buscaminas 
 {
 	private int dificultad;
+	private String user;
 	private Tablero tablero;
 	private static Buscaminas miBuscaminas;
 	
@@ -24,7 +25,7 @@ public class Buscaminas
 	
 	public void iniciarPartida()
 	{	
-		this.dificultad = 1;
+		this.dificultad = 2;
 		crearTablero();
 		tablero.printTablero();
 	}
@@ -58,5 +59,14 @@ public class Buscaminas
 		return tablero;
 	}
 	
+	public void setUser(String pUser)
+	{
+		this.user = pUser;
+	}
+	
+	public void setDif(int pDif)
+	{
+		this.dificultad = pDif;
+	}
 	
 }

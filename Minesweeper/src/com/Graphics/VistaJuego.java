@@ -113,7 +113,22 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 		tab.addObserver(this);
 		posMinas = new JButton[x][y];
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 420, 415);
+		if(x==7 && y==10)
+		{
+			setBounds(100, 100, 420, 415);
+		}
+		else if(x==10 && y==15)
+		{
+			setBounds(100, 100, 60*x, 42*y);
+		}
+		else if(x==12 && y==25)
+		{
+			setBounds(100, 100, 60*x, 42*y);
+		}
+		else
+		{
+			System.out.println("Tamaño no valido");
+		}
 		setResizable(false);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -123,7 +138,7 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 		
 		Grid = new JPanel();
 		contentPane.add(Grid, BorderLayout.CENTER);
-		Grid.setLayout(new GridLayout(7,10, 0, 0));
+		Grid.setLayout(new GridLayout(x,y, 0, 0));
 		
 		JPanel Menu = new JPanel();
 		contentPane.add(Menu, BorderLayout.NORTH);

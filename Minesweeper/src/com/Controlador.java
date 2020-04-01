@@ -28,7 +28,6 @@ public class Controlador {
 	public void iniciarPartida()
 	{
 		Buscaminas.getBuscaminas().iniciarPartida();
-		VistaJuego vistaJuego = new VistaJuego(7, 10, Buscaminas.getBuscaminas().getTab());
 	}
 	
 	
