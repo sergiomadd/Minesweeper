@@ -25,7 +25,7 @@ public class Buscaminas
 	
 	public void iniciarPartida()
 	{	
-		this.dificultad = 2;
+		this.dificultad = 1;
 		crearTablero();
 		tablero.printTablero();
 	}

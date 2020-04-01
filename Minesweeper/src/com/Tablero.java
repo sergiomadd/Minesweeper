@@ -6,11 +6,12 @@ import java.util.Random;
 public class Tablero extends java.util.Observable
 {
 	private Casilla[][] matriz;
-	
+	private int numBombasSinMarcar;
 	private int contadorCasillas;
 	
 	public Tablero(Integer tamX, Integer tamY, Integer numBombas)
 	{
+		this.numBombasSinMarcar = numBombas;
 		TableroFactory factory = TableroFactory.getTableroFactory();
 		contadorCasillas = tamX * tamY - numBombas;
 
@@ -124,48 +125,68 @@ public class Tablero extends java.util.Observable
 	@SuppressWarnings("deprecation")
 	public void mostrarCasilla(Integer x, Integer y, String click)
 	{
-		
 		if(inBounds(x,y))
 		{
-			if(this.matriz[x][y] instanceof CasillaVacia && (this.matriz[x][y].getEstado2() instanceof EstadoTapadoNB))
+			if(click.equals("izq"))
 			{
-				if(matriz[x][y].hacerClick(click)) 
+				if(this.matriz[x][y] instanceof CasillaVacia && (this.matriz[x][y].getEstado2() instanceof EstadoTapadoNB))
 				{
-					contadorCasillas--;
-				}
-				String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y))};
-				setChanged();
-				notifyObservers(datos);
-				mostrarVecinos(x, y, click);
-			}
-			else
-			{	
-				if(this.matriz[x][y].getEstado2() instanceof EstadoTapadoNB)
-				{
-					//System.out.println("Tapado");
-					if(matriz[x][y].hacerClick(click)) {contadorCasillas--;}
+					if(matriz[x][y].hacerClick(click)) 
+					{
+						contadorCasillas--;
+					}
 					String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y))};
 					setChanged();
 					notifyObservers(datos);
+					mostrarVecinos(x, y, click);
+				}
+				else
+				{	
+					if(this.matriz[x][y].getEstado2() instanceof EstadoTapadoNB)
+					{
+						if(matriz[x][y].hacerClick(click)) {contadorCasillas--;}
+						String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y))};
+						setChanged();
+						notifyObservers(datos);
+					}
 				}
 				
-				/*if(this.matriz[x][y].getEstado2() instanceof EstadoDestapado)	
+				if(this.matriz[x][y] instanceof CasillaMina)
 				{
-					//System.out.println("Destapado");
-				}*/
-			}
-			
-			if(this.matriz[x][y] instanceof CasillaMina)
-			{
-				//Pregunta: Acceder a este metodo asi, o llamarlo desde la propia casillamina pasando por buscaminas.
-				finalizarPartida(false);
-			}
-			
-			else 
-			{
-				if(contadorCasillas <= 0)
+					//Pregunta: Acceder a este metodo asi, o llamarlo desde la propia casillamina pasando por buscaminas.
+					finalizarPartida(false);
+				}
+				
+				else 
 				{
-					finalizarPartida(true);
+					if(contadorCasillas <= 0)
+					{
+						finalizarPartida(true);
+					}
+				}
+			}
+			else //If click == "der"
+			{
+				if(this.numBombasSinMarcar>0)
+				{
+					if(matriz[x][y].hacerClick(click))
+					{
+						this.numBombasSinMarcar--;
+						System.out.println(getMostrar(x,y));
+						String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y))};
+						setChanged();
+						notifyObservers(datos);
+						System.out.println("Marcar 1");
+					}
+					else if(!matriz[x][y].hacerClick(click))
+					{
+						this.numBombasSinMarcar++;
+						String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y))};
+						setChanged();
+						notifyObservers(datos);
+						System.out.println("Marcar 2");
+					}
+					System.out.println(numBombasSinMarcar);
 				}
 			}
 		}
