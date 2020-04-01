@@ -33,6 +33,9 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 	private JPanel contentPane;
 	private int cont = 0;
 	private JPanel Grid;
+	JLabel lblTiempo = new JLabel();
+	
+	Timer timer;
 	
 	//Fondo destapado gris
 	Color gris = new Color(189,189,189);
@@ -99,11 +102,20 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 	}
 
 	public void reset() {
-		contentPane.removeAll();
-		dispose();
-		//Como hacer para que no haya que abrir una ventana nueva entera cada vez
-		
+		for(int i=0; i < posMinas.length ; i++) {
+			for(int j=0; j < posMinas[0].length; j++){
+				Color sinmarcar = new Color(220,220,220);
+				posMinas[i][j].setBackground(sinmarcar);
+				posMinas[i][j].setBorder(new LineBorder(Color.WHITE));
+				posMinas[i][j].setText("");
+				posMinas[i][j].setIcon(null);	
+			}
+		}		
 		Controlador.getControlador().iniciarPartida();
+		Controlador.getControlador().getTablero().addObserver(this);
+		iniciarTimer(lblTiempo);
+		
+		
 	}
 
 	/**
@@ -150,6 +162,18 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 		
 		JButton btnReset = new JButton();
 		btnReset.setBackground(new Color(189,189,189));
+		
+		//inicializa el timer
+		
+		timer = new Timer(1000, new ActionListener() {
+	    	SimpleDateFormat f = new SimpleDateFormat("mm:ss");
+	    	long start = System.currentTimeMillis();
+	    	
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	          lblTiempo.setText(String.valueOf(f.format((System.currentTimeMillis()-start))));
+	        }
+	      });
 
 		btnReset.setIcon(new ImageIcon(getClass().getResource("reset_trasp.png").getPath()));
 
@@ -163,9 +187,9 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 
 		Menu.add(btnReset);
 		
-		JLabel lblTiempo = new JLabel("00:00");
 		lblTiempo.setHorizontalAlignment(SwingConstants.CENTER);
 		Menu.add(lblTiempo);
+		
 		for(int i=0; i < x ; i++) {
 			for(int j=0; j < y; j++){
 				JButton btnCasilla = new JButton("");
@@ -201,14 +225,23 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 			}
 		}
 		
-	    new Timer(1000, new ActionListener() {
-	    	SimpleDateFormat f = new SimpleDateFormat("mm:ss");
-	    	long start = System.currentTimeMillis();
-	    	
-	        @Override
-	        public void actionPerformed(ActionEvent e) {
-	          lblTiempo.setText(String.valueOf(f.format((System.currentTimeMillis()-start))));
-	        }
-	      }).start();
+	    iniciarTimer(lblTiempo);
+	    
 	    }
+	
+		private void iniciarTimer(JLabel lblTiempo) {
+			lblTiempo.setText("00:00");
+			timer.removeActionListener(timer.getActionListeners()[0]);
+			timer = new Timer(1000, new ActionListener() {
+		    	SimpleDateFormat f = new SimpleDateFormat("mm:ss");
+		    	long start = System.currentTimeMillis();
+		    	
+		        @Override
+		        public void actionPerformed(ActionEvent e) {
+		          lblTiempo.setText(String.valueOf(f.format((System.currentTimeMillis()-start))));
+		        }
+		      });
+			timer.start();
+		}
+		
 }
