@@ -28,8 +28,12 @@ public class Controlador {
 	public void iniciarPartida()
 	{
 		Buscaminas.getBuscaminas().iniciarPartida();
+		
 	}
 	
-	
+	public Tablero getTablero()
+	{
+		return Buscaminas.getBuscaminas().getTab();
+	}
 	
 }
