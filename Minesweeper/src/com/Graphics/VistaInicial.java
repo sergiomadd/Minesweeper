@@ -6,7 +6,13 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import com.Controlador;
+
 import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -75,17 +81,13 @@ public class VistaInicial extends JFrame {
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		panel_4.add(btnAceptar);
+		btnAceptar.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				Controlador.getControlador().getDatosIniciales(Integer.parseInt(tfDificultad.getText()),tfNombre.getText());
+			}
+		});
 		
 		setVisible(true);
-	}
-	
-	public int getDificultad() {
-		return Integer.parseInt(tfDificultad.getText());
-		
-	}
-	
-	public String getNombre() {
-		return tfNombre.getText();
 	}
 
 }
