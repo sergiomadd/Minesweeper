@@ -14,8 +14,8 @@ import javax.swing.JButton;
 public class VistaInicial extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField tfNombre;
+	private JTextField tfDificultad;
 
 	/**
 	 * Launch the application.
@@ -53,9 +53,9 @@ public class VistaInicial extends JFrame {
 		JPanel panel_1 = new JPanel();
 		contentPane.add(panel_1);
 		
-		textField = new JTextField();
-		panel_1.add(textField);
-		textField.setColumns(10);
+		tfNombre = new JTextField();
+		panel_1.add(tfNombre);
+		tfNombre.setColumns(10);
 		
 		JPanel panel_2 = new JPanel();
 		contentPane.add(panel_2);
@@ -66,9 +66,9 @@ public class VistaInicial extends JFrame {
 		JPanel panel_3 = new JPanel();
 		contentPane.add(panel_3);
 		
-		textField_1 = new JTextField();
-		panel_3.add(textField_1);
-		textField_1.setColumns(10);
+		tfDificultad = new JTextField();
+		panel_3.add(tfDificultad);
+		tfDificultad.setColumns(10);
 		
 		JPanel panel_4 = new JPanel();
 		contentPane.add(panel_4);
@@ -77,6 +77,15 @@ public class VistaInicial extends JFrame {
 		panel_4.add(btnAceptar);
 		
 		setVisible(true);
+	}
+	
+	public int getDificultad() {
+		return Integer.parseInt(tfDificultad.getText());
+		
+	}
+	
+	public String getNombre() {
+		return tfNombre.getText();
 	}
 
 }
