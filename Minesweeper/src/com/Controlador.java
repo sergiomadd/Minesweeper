@@ -28,7 +28,6 @@ public class Controlador {
 	public void iniciarPartida()
 	{
 		Buscaminas.getBuscaminas().iniciarPartida();
-		
 	}
 	
 	public Tablero getTablero()
@@ -36,4 +35,8 @@ public class Controlador {
 		return Buscaminas.getBuscaminas().getTab();
 	}
 	
+	public void getDatosIniciales(int dif, String nom)
+	{
+		
+	}
 }
