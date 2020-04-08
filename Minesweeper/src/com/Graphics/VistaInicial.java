@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.Controlador;
+import com.Tablero;
 
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
@@ -81,9 +82,29 @@ public class VistaInicial extends JFrame {
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		panel_4.add(btnAceptar);
+		
 		btnAceptar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				Controlador.getControlador().getDatosIniciales(Integer.parseInt(tfDificultad.getText()),tfNombre.getText());
+				dispose();
+				VistaJuego vista;
+				switch(Integer.parseInt(tfDificultad.getText()))
+				{
+				case 1:
+					vista = new VistaJuego(7, 10,Controlador.getControlador().getTablero());
+					break;
+				case 2:
+					vista = new VistaJuego(10, 15,Controlador.getControlador().getTablero());
+					break;
+				case 3:
+					vista = new VistaJuego(12, 25,Controlador.getControlador().getTablero());
+					break;
+				default:
+					System.out.println("ERROR: elige 1, 2 o 3.");
+					//Lanzamos excepcion de error de dificultad
+					break;
+				}
+				
 			}
 		});
 		

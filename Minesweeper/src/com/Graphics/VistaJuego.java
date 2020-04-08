@@ -2,6 +2,7 @@ package com.Graphics;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -100,8 +101,11 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 				boton.setIcon(null);	
 			}		
 			else if(mostrar.equals("acabada")) {
-				System.out.println("Effectivamente has acabado");
+				System.out.println("Efectivamente has acabado");
 				//contentPane.removeAll();
+				for (Component component : contentPane.getComponents()) {
+					   component.setEnabled(false); 
+					}
 			}
 	}
 
