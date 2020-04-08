@@ -37,6 +37,7 @@ public class Controlador {
 	
 	public void getDatosIniciales(int dif, String nom)
 	{
-		
+		Buscaminas.getBuscaminas().setDif(dif);
+		Buscaminas.getBuscaminas().setUser(nom);
 	}
 }
