@@ -1,28 +1,25 @@
 package com.Graphics;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import com.Controlador;
-import com.Tablero;
-
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import com.Controlador;
 
 public class VistaInicial extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField tfNombre;
-	private JTextField tfDificultad;
 
 	/**
 	 * Launch the application.
@@ -73,9 +70,13 @@ public class VistaInicial extends JFrame {
 		JPanel panel_3 = new JPanel();
 		contentPane.add(panel_3);
 		
-		tfDificultad = new JTextField();
-		panel_3.add(tfDificultad);
-		tfDificultad.setColumns(10);
+		DefaultComboBoxModel<String> elementos = new DefaultComboBoxModel<>();
+		elementos.addElement("1");
+		elementos.addElement("2");
+		elementos.addElement("3");
+		
+		JComboBox comboBox = new JComboBox(elementos);
+		panel_3.add(comboBox);
 		
 		JPanel panel_4 = new JPanel();
 		contentPane.add(panel_4);
@@ -85,10 +86,10 @@ public class VistaInicial extends JFrame {
 		
 		btnAceptar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				Controlador.getControlador().getDatosIniciales(Integer.parseInt(tfDificultad.getText()),tfNombre.getText());
+				Controlador.getControlador().getDatosIniciales(Integer.parseInt((String)comboBox.getSelectedItem()),tfNombre.getText());
 				dispose();
 				VistaJuego vista;
-				switch(Integer.parseInt(tfDificultad.getText()))
+				switch(Integer.parseInt((String)comboBox.getSelectedItem()))
 				{
 				case 1:
 					vista = new VistaJuego(7, 10,Controlador.getControlador().getTablero());
@@ -107,6 +108,8 @@ public class VistaInicial extends JFrame {
 				
 			}
 		});
+		
+		
 		
 		setVisible(true);
 	}

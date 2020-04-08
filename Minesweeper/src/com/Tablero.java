@@ -135,7 +135,7 @@ public class Tablero extends java.util.Observable
 					{
 						contadorCasillas--;
 					}
-					String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y))};
+					String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y)),Integer.toString(this.numBanderas)};
 					setChanged();
 					notifyObservers(datos);
 					mostrarVecinos(x, y, click);
@@ -145,7 +145,7 @@ public class Tablero extends java.util.Observable
 					if(this.matriz[x][y].getEstado2() instanceof EstadoTapadoNB)
 					{
 						if(matriz[x][y].hacerClick(click)) {contadorCasillas--;}
-						String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y))};
+						String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y)),Integer.toString(this.numBanderas)};
 						setChanged();
 						notifyObservers(datos);
 					}
@@ -173,7 +173,7 @@ public class Tablero extends java.util.Observable
 					{
 						this.numBanderas--;
 						System.out.println(getMostrar(x,y));
-						String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y))};
+						String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y)), Integer.toString(this.numBanderas)};
 						setChanged();
 						notifyObservers(datos);
 						System.out.println("Marcar 1");
@@ -181,9 +181,9 @@ public class Tablero extends java.util.Observable
 				}
 				else
 				{
-					System.out.println("hey");
 					this.numBanderas++;
-					String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y))};
+					System.out.println(getMostrar(x,y));
+					String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y)), Integer.toString(this.numBanderas)};
 					setChanged();
 					notifyObservers(datos);
 					System.out.println("Marcar 2");
@@ -222,6 +222,14 @@ public class Tablero extends java.util.Observable
 	@SuppressWarnings("deprecation")
 	public void finalizarPartida(boolean ganado) 
 	{
+		if(ganado)
+		{
+			System.out.println("Has ganado :)");
+		}
+		else
+		{
+			System.out.println("Has perdido :(");
+		}
 		for (int i = 0; i < matriz.length; i++)
 		{
 			for (int j = 0; j < matriz[i].length; j++)
@@ -230,7 +238,7 @@ public class Tablero extends java.util.Observable
 				if(casilla instanceof CasillaMina)
 				{
 					casilla.hacerClick("izq");
-					String[] datos = {Integer.toString(i), Integer.toString(j), getMostrar(i,j), Integer.toString(getNum(i,j))};
+					String[] datos = {Integer.toString(i), Integer.toString(j), getMostrar(i,j), Integer.toString(getNum(i,j)), "0"};
 					setChanged();
 					notifyObservers(datos);
 				}

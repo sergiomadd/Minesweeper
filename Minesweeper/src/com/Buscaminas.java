@@ -34,7 +34,7 @@ public class Buscaminas
 		switch(dificultad)
 		{
 		case 1:
-			tablero = new Tablero(7, 10, 7*1);
+			tablero = new Tablero(7, 10, 10*1);
 			break;
 		case 2:
 			tablero = new Tablero(10, 15, 15*2);
