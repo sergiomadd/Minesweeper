@@ -139,11 +139,11 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 		}
 		else if(x==10 && y==15)
 		{
-			setBounds(100, 100, 60*x, 42*y);
+			setBounds(100, 100, 60*x, 45*y);
 		}
 		else if(x==12 && y==25)
 		{
-			setBounds(100, 100, 60*x, 42*y);
+			setBounds(100, 100, 60*x, 45	*y);
 		}
 		else
 		{

@@ -9,7 +9,7 @@ public class Main {
 		
 		Controlador.getControlador().iniciarPartida();
 		VistaInicial vistaInicial = new VistaInicial();
-		VistaJuego vistaJuego = new VistaJuego(7, 10, Buscaminas.getBuscaminas().getTab());
+		//VistaJuego vistaJuego = new VistaJuego(7, 10, Buscaminas.getBuscaminas().getTab());
 		
 	}
 }
