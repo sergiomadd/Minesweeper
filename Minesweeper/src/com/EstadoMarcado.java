@@ -13,7 +13,7 @@ public class EstadoMarcado implements Estado
 	public boolean clickDerecho(Casilla cas)
 	{
 		cas.setEstado(previo);
-		return true;
+		return false;
 	}
 	
 	public boolean clickIzquierdo(Casilla cas)

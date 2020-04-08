@@ -99,6 +99,10 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 			else if(mostrar.equals("tapado")) {
 				boton.setIcon(null);	
 			}		
+			else if(mostrar.equals("acabada")) {
+				System.out.println("Effectivamente has acabado");
+				//contentPane.removeAll();
+			}
 	}
 
 	public void reset() {

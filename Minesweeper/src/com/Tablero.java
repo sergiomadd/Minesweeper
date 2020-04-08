@@ -6,12 +6,12 @@ import java.util.Random;
 public class Tablero extends java.util.Observable
 {
 	private Casilla[][] matriz;
-	private int numBombasSinMarcar;
+	private int numBanderas;
 	private int contadorCasillas;
 	
 	public Tablero(Integer tamX, Integer tamY, Integer numBombas)
 	{
-		this.numBombasSinMarcar = numBombas;
+		this.numBanderas = numBombas;
 		TableroFactory factory = TableroFactory.getTableroFactory();
 		contadorCasillas = tamX * tamY - numBombas;
 
@@ -166,28 +166,29 @@ public class Tablero extends java.util.Observable
 				}
 			}
 			else //If click == "der"
-			{//
-				if(this.numBombasSinMarcar>0)
+			{
+				if(matriz[x][y].hacerClick(click))
 				{
-					if(matriz[x][y].hacerClick(click))
+					if(numBanderas>0)
 					{
-						this.numBombasSinMarcar--;
+						this.numBanderas--;
 						System.out.println(getMostrar(x,y));
 						String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y))};
 						setChanged();
 						notifyObservers(datos);
 						System.out.println("Marcar 1");
 					}
-					else if(!matriz[x][y].hacerClick(click))
-					{
-						this.numBombasSinMarcar++;
-						String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y))};
-						setChanged();
-						notifyObservers(datos);
-						System.out.println("Marcar 2");
-					}
-					System.out.println(numBombasSinMarcar);
 				}
+				else
+				{
+					System.out.println("hey");
+					this.numBanderas++;
+					String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y))};
+					setChanged();
+					notifyObservers(datos);
+					System.out.println("Marcar 2");
+				}
+				System.out.println(numBanderas);
 			}
 		}
 	}
@@ -221,29 +222,23 @@ public class Tablero extends java.util.Observable
 	@SuppressWarnings("deprecation")
 	public void finalizarPartida(boolean ganado) 
 	{
-		if(ganado == false)
+		for (int i = 0; i < matriz.length; i++)
 		{
-			for (int i = 0; i < matriz.length; i++)
+			for (int j = 0; j < matriz[i].length; j++)
 			{
-				for (int j = 0; j < matriz[i].length; j++)
+				Casilla casilla = matriz[i][j];
+				if(casilla instanceof CasillaMina)
 				{
-					Casilla casilla = matriz[i][j];
-					if(casilla instanceof CasillaMina)
-					{
-						casilla.hacerClick("izq");
-						String[] datos = {Integer.toString(i), Integer.toString(j), getMostrar(i,j), Integer.toString(getNum(i,j))};
-						setChanged();
-						notifyObservers(datos);
-					}
+					casilla.hacerClick("izq");
+					String[] datos = {Integer.toString(i), Integer.toString(j), getMostrar(i,j), Integer.toString(getNum(i,j))};
+					setChanged();
+					notifyObservers(datos);
 				}
 			}
-			System.out.println("Has perdido :(");
 		}
-		else
-		{
-			//mostrar puntuacion.
-			System.out.println("Has ganado :D");
-		}
+		String[] datos = {"0", "0", "acabada", ""};
+		setChanged();
+		notifyObservers(datos);
 	}
 	
 	private int getNum(int x, int y)

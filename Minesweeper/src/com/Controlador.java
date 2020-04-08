@@ -40,4 +40,9 @@ public class Controlador {
 		Buscaminas.getBuscaminas().setDif(dif);
 		Buscaminas.getBuscaminas().setUser(nom);
 	}
+	
+	public void finalizarPartida()
+	{
+		
+	}
 }
