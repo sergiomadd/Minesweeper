@@ -30,9 +30,10 @@ import com.Tablero;
 @SuppressWarnings("deprecation")
 public class VistaJuego extends JFrame implements java.util.Observer{
 	private JButton[][] posMinas = null;
+	
+	private int auxY;
 
 	private JPanel contentPane;
-	private int cont = 0;
 	private JPanel Grid;
 	JLabel lblTiempo = new JLabel();
 	
@@ -65,10 +66,8 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 	public void update(Observable tab, Object datos2) {
 			int x,y;
 			String[] datos = (String[]) datos2;
-			//System.out.println("Banderas:" + datos[4]);
 			x = Integer.parseInt(datos[0]);
 			y = Integer.parseInt(datos[1]);
-			//System.out.println(x+""+y);
 			JButton boton = posMinas[x][y];
 			String mostrar = datos[2];
 			lblBanderas.setText("Banderas:" + datos[4]);
@@ -86,31 +85,22 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 				boton.setIcon(new ImageIcon(getClass().getResource("flag_trasp.png").getPath()));
 			}
 			else if(mostrar.equals("bomba")) {
-				//muestra bomba en x,y fondo rojo
-				if(cont==0)
-				{
-					boton.setIcon(null);	
-					boton.setIcon(new ImageIcon(getClass().getResource("bomba_trasp.png").getPath()));
-					boton.setBackground(new Color(255,0,0));
-					cont++;
-				}
-				else 
-				{
-					//muestra resto de bombas fondo gris
-					boton.setIcon(null);	
-					boton.setIcon(new ImageIcon(getClass().getResource("bomba_trasp.png").getPath()));
-					boton.setBackground(gris);
-				}
+				//muestra resto de bombas fondo gris
+				boton.setIcon(null);	
+				boton.setIcon(new ImageIcon(getClass().getResource("bomba_trasp.png").getPath()));
+				boton.setBackground(gris);
 			}
+			else if(mostrar.equals("rojo")) {
+				boton.setIcon(null);	
+				boton.setIcon(new ImageIcon(getClass().getResource("bomba_trasp.png").getPath()));
+				boton.setBackground(new Color(255,0,0));	
+			}		
 			else if(mostrar.equals("tapado")) {
 				boton.setIcon(null);	
 			}		
 			else if(mostrar.equals("acabada")) {
 				System.out.println("Efectivamente has acabado");
-				//contentPane.removeAll();
-				for (Component component : contentPane.getComponents()) {
-					   component.setEnabled(false); 
-					}
+				pararTimer();
 			}
 	}
 
@@ -124,10 +114,21 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 				posMinas[i][j].setIcon(null);	
 			}
 		}		
-		Controlador.getControlador().iniciarPartida();
+		Controlador.getControlador().crearPartida();
 		Controlador.getControlador().getTablero().addObserver(this);
 		iniciarTimer(lblTiempo);
-		
+		if(auxY==10)
+		{
+			lblBanderas.setText("Banderas: 10");
+		}
+		else if(auxY==15) 
+		{
+			lblBanderas.setText("Banderas: 30");
+		}
+		else
+		{
+			lblBanderas.setText("Banderas: 75");
+		}
 		
 	}
 
@@ -136,6 +137,7 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 	 */
 	public VistaJuego(int x, int y, Observable tab) {
 		tab.addObserver(this);
+		auxY=y;
 		posMinas = new JButton[x][y];
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		if(x==7 && y==10)
@@ -148,7 +150,7 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 		}
 		else if(x==12 && y==25)
 		{
-			setBounds(100, 100, 60*x, 42*y);
+			setBounds(100, 100, 80*x, 30*y);
 		}
 		else
 		{
@@ -248,7 +250,6 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 						}
 						
 						else {
-							btnCasilla.setIcon(new ImageIcon(("C://Users//innib//Pictures//flag_trasp.png")));
 							Controlador.getControlador().clicarCasilla(coord, "der");
 						}	
 					}
@@ -273,6 +274,11 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 		        }
 		      });
 			timer.start();
+		}
+		
+		private void pararTimer()
+		{
+			timer.stop();
 		}
 		
 }

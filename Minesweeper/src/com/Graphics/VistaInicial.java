@@ -87,6 +87,7 @@ public class VistaInicial extends JFrame {
 		btnAceptar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
 				Controlador.getControlador().getDatosIniciales(Integer.parseInt((String)comboBox.getSelectedItem()),tfNombre.getText());
+				Controlador.getControlador().crearPartida();
 				dispose();
 				VistaJuego vista;
 				switch(Integer.parseInt((String)comboBox.getSelectedItem()))
@@ -101,11 +102,8 @@ public class VistaInicial extends JFrame {
 					vista = new VistaJuego(12, 25,Controlador.getControlador().getTablero());
 					break;
 				default:
-					System.out.println("ERROR: elige 1, 2 o 3.");
-					//Lanzamos excepcion de error de dificultad
 					break;
 				}
-				
 			}
 		});
 		
