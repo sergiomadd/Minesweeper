@@ -27,6 +27,7 @@ public class Buscaminas
 	{	
 		crearTablero();
 		tablero.printTablero();
+		System.out.println();
 	}
 	
 	public void crearTablero()

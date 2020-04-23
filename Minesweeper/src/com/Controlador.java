@@ -27,6 +27,11 @@ public class Controlador {
 	
 	public void iniciarPartida()
 	{
+		Buscaminas.getBuscaminas();
+	}
+	
+	public void crearPartida()
+	{
 		Buscaminas.getBuscaminas().iniciarPartida();
 	}
 	

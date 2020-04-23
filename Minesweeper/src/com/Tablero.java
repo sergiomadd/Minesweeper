@@ -5,12 +5,15 @@ import java.util.Random;
 @SuppressWarnings("deprecation")
 public class Tablero extends java.util.Observable
 {
+	private boolean acabado;
 	private Casilla[][] matriz;
 	private int numBanderas;
 	private int contadorCasillas;
 	
 	public Tablero(Integer tamX, Integer tamY, Integer numBombas)
 	{
+		acabado = false;
+		System.out.println(numBombas);
 		this.numBanderas = numBombas;
 		TableroFactory factory = TableroFactory.getTableroFactory();
 		contadorCasillas = tamX * tamY - numBombas;
@@ -125,7 +128,7 @@ public class Tablero extends java.util.Observable
 	@SuppressWarnings("deprecation")
 	public void mostrarCasilla(Integer x, Integer y, String click)
 	{
-		if(inBounds(x,y))
+		if(inBounds(x,y) && acabado == false)
 		{
 			if(click.equals("izq"))
 			{
@@ -154,6 +157,11 @@ public class Tablero extends java.util.Observable
 				if(this.matriz[x][y] instanceof CasillaMina)
 				{
 					//Pregunta: Acceder a este metodo asi, o llamarlo desde la propia casillamina pasando por buscaminas.
+					Casilla casilla = matriz[x][y];
+					casilla.hacerClick("izq");
+					String[] datos = {Integer.toString(x), Integer.toString(y), "rojo", Integer.toString(getNum(x,y)), "0"};
+					setChanged();
+					notifyObservers(datos);
 					finalizarPartida(false);
 				}
 				
@@ -172,23 +180,18 @@ public class Tablero extends java.util.Observable
 					if(numBanderas>0)
 					{
 						this.numBanderas--;
-						System.out.println(getMostrar(x,y));
 						String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y)), Integer.toString(this.numBanderas)};
 						setChanged();
 						notifyObservers(datos);
-						System.out.println("Marcar 1");
 					}
 				}
 				else
 				{
 					this.numBanderas++;
-					System.out.println(getMostrar(x,y));
 					String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y)), Integer.toString(this.numBanderas)};
 					setChanged();
 					notifyObservers(datos);
-					System.out.println("Marcar 2");
 				}
-				System.out.println(numBanderas);
 			}
 		}
 	}
@@ -237,16 +240,19 @@ public class Tablero extends java.util.Observable
 				Casilla casilla = matriz[i][j];
 				if(casilla instanceof CasillaMina)
 				{
-					casilla.hacerClick("izq");
-					String[] datos = {Integer.toString(i), Integer.toString(j), getMostrar(i,j), Integer.toString(getNum(i,j)), "0"};
-					setChanged();
-					notifyObservers(datos);
+					if(casilla.hacerClick("izq"))
+					{
+						String[] datos = {Integer.toString(i), Integer.toString(j), getMostrar(i,j), Integer.toString(getNum(i,j)), "0"};
+						setChanged();
+						notifyObservers(datos);
+					}
 				}
 			}
 		}
-		String[] datos = {"0", "0", "acabada", ""};
+		String[] datos = {"0", "0", "acabada", "", "0"};
 		setChanged();
 		notifyObservers(datos);
+		acabado = true;
 	}
 	
 	private int getNum(int x, int y)
