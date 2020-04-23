@@ -36,6 +36,8 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 	private JPanel Grid;
 	JLabel lblTiempo = new JLabel();
 	
+	JLabel lblBanderas = new JLabel();
+	
 	Timer timer;
 	
 	//Fondo destapado gris
@@ -63,13 +65,13 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 	public void update(Observable tab, Object datos2) {
 			int x,y;
 			String[] datos = (String[]) datos2;
-			
+			//System.out.println("Banderas:" + datos[4]);
 			x = Integer.parseInt(datos[0]);
 			y = Integer.parseInt(datos[1]);
 			//System.out.println(x+""+y);
 			JButton boton = posMinas[x][y];
 			String mostrar = datos[2];
-			
+			lblBanderas.setText("Banderas:" + datos[4]);
 			if (mostrar.equals("vacio")){
 				boton.setBackground(gris);
 				boton.setBorder(new LineBorder(grisBorde));
@@ -80,12 +82,14 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 				boton.setText(datos[3]);
 			}
 			else if(mostrar.equals("bandera")) {
+				boton.setIcon(null);	
 				boton.setIcon(new ImageIcon(getClass().getResource("flag_trasp.png").getPath()));
 			}
 			else if(mostrar.equals("bomba")) {
 				//muestra bomba en x,y fondo rojo
 				if(cont==0)
 				{
+					boton.setIcon(null);	
 					boton.setIcon(new ImageIcon(getClass().getResource("bomba_trasp.png").getPath()));
 					boton.setBackground(new Color(255,0,0));
 					cont++;
@@ -93,6 +97,7 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 				else 
 				{
 					//muestra resto de bombas fondo gris
+					boton.setIcon(null);	
 					boton.setIcon(new ImageIcon(getClass().getResource("bomba_trasp.png").getPath()));
 					boton.setBackground(gris);
 				}
@@ -164,10 +169,6 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 		contentPane.add(Menu, BorderLayout.NORTH);
 		Menu.setLayout(new GridLayout(0, 3, 0, 0));
 		
-		JLabel lblPuntos = new JLabel("puntos");
-		lblPuntos.setHorizontalAlignment(SwingConstants.CENTER);
-		Menu.add(lblPuntos);
-		
 		JButton btnReset = new JButton();
 		btnReset.setBackground(new Color(189,189,189));
 		
@@ -192,6 +193,28 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 				reset();
 			}
 		});
+		
+		JPanel panel = new JPanel();
+		Menu.add(panel);
+		panel.setLayout(new GridLayout(2, 0, 0, 0));
+		
+		panel.add(lblBanderas);
+		if(y==10)
+		{
+			lblBanderas.setText("Banderas: 10");
+		}
+		else if(y==15) 
+		{
+			lblBanderas.setText("Banderas: 30");
+		}
+		else
+		{
+			lblBanderas.setText("Banderas: 75");
+		}
+
+		
+		JLabel lblNewLabel = new JLabel("Puntos");
+		panel.add(lblNewLabel);
 
 		Menu.add(btnReset);
 		
