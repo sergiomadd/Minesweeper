@@ -5,6 +5,7 @@ import java.util.Random;
 @SuppressWarnings("deprecation")
 public class Tablero extends java.util.Observable
 {
+	//a
 	private boolean acabado;
 	private Casilla[][] matriz;
 	private int numBanderas;
