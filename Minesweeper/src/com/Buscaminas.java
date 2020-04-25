@@ -1,5 +1,7 @@
 package com;
 
+import java.util.HashMap;
+
 import com.Graphics.Coordenada;
 
 public class Buscaminas 
@@ -8,10 +10,11 @@ public class Buscaminas
 	private String user = "";
 	private Tablero tablero;
 	private static Buscaminas miBuscaminas;
+	//private HashMap<String, Integer> datos; --> Pasarlo a un txt y leer cada vez de ahi
 	
 	private Buscaminas()
 	{
-		//VACIO
+		
 	}
 	
 	public static synchronized Buscaminas getBuscaminas()

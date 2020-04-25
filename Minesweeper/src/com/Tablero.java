@@ -213,8 +213,9 @@ public class Tablero extends java.util.Observable
 					{
 						finalizarPartida(true);
 					}
-				}
+				}//
 			}
+			
 			else //If click == "der"
 			{
 				if(matriz[x][y].hacerClick(click)) //hay cambio de estado
