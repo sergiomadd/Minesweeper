@@ -173,6 +173,7 @@ public class Tablero extends java.util.Observable
 					}
 				}
 			}
+			
 			else //If click == "der"
 			{
 				if(matriz[x][y].hacerClick(click))

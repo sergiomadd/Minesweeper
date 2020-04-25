@@ -95,8 +95,8 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 				boton.setIcon(new ImageIcon(getClass().getResource("bomba_trasp.png").getPath()));
 				boton.setBackground(new Color(255,0,0));	
 			}		
-			else if(mostrar.equals("tapado")) {
-				boton.setIcon(null);	
+			else if(mostrar.equals("tapada")) {
+				boton.setIcon(null);
 			}		
 			else if(mostrar.equals("acabada")) {
 				System.out.println("Efectivamente has acabado");
