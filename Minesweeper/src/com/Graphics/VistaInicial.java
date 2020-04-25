@@ -14,7 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import com.Controlador;
+import com.Buscaminas;
+
 
 public class VistaInicial extends JFrame {
 
@@ -86,20 +87,21 @@ public class VistaInicial extends JFrame {
 		
 		btnAceptar.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {
-				Controlador.getControlador().getDatosIniciales(Integer.parseInt((String)comboBox.getSelectedItem()),tfNombre.getText());
-				Controlador.getControlador().crearPartida();
+				Buscaminas.getBuscaminas().setDif(Integer.parseInt((String)comboBox.getSelectedItem()));
+				Buscaminas.getBuscaminas().setUser(tfNombre.getText());
+				Buscaminas.getBuscaminas().iniciarPartida();
 				dispose();
 				VistaJuego vista;
 				switch(Integer.parseInt((String)comboBox.getSelectedItem()))
 				{
 				case 1:
-					vista = new VistaJuego(7, 10,Controlador.getControlador().getTablero());
+					vista = new VistaJuego(7, 10,Buscaminas.getBuscaminas().getTab());
 					break;
 				case 2:
-					vista = new VistaJuego(10, 15,Controlador.getControlador().getTablero());
+					vista = new VistaJuego(10, 15,Buscaminas.getBuscaminas().getTab());
 					break;
 				case 3:
-					vista = new VistaJuego(12, 25,Controlador.getControlador().getTablero());
+					vista = new VistaJuego(12, 25,Buscaminas.getBuscaminas().getTab());
 					break;
 				default:
 					break;

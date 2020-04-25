@@ -6,7 +6,7 @@ import com.Graphics.VistaJuego;
 public class Main {
 	public static void main(String[] args) {
 		VistaInicial vistaInicial = new VistaInicial();
-		Controlador.getControlador().iniciarPartida();
+		Buscaminas.getBuscaminas().iniciarPartida();
 
 		
 	}

@@ -24,7 +24,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
 import com.Buscaminas;
-import com.Controlador;
 import com.Tablero;
 
 @SuppressWarnings("deprecation")
@@ -115,8 +114,8 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 				posMinas[i][j].setIcon(null);	
 			}
 		}		
-		Controlador.getControlador().crearPartida();
-		Controlador.getControlador().getTablero().addObserver(this);
+		Buscaminas.getBuscaminas().iniciarPartida();
+		Buscaminas.getBuscaminas().getTab().addObserver(this);
 		iniciarTimer(lblTiempo);
 		if(auxY==10)
 		{
@@ -197,12 +196,8 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 				reset();
 			}
 		});
-		
-		JPanel panel = new JPanel();
-		Menu.add(panel);
-		panel.setLayout(new GridLayout(2, 0, 0, 0));
-		
-		panel.add(lblBanderas);
+
+		Menu.add(lblBanderas);
 		if(y==10)
 		{
 			lblBanderas.setText("Banderas: 10");
@@ -216,10 +211,7 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 			lblBanderas.setText("Banderas: 75");
 		}
 
-		
-		JLabel lblNewLabel = new JLabel("Puntos");
-		panel.add(lblNewLabel);
-
+	
 		Menu.add(btnReset);
 		
 		lblTiempo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -248,11 +240,11 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 						  }
 						
 						if (SwingUtilities.isLeftMouseButton(arg0)) {
-							Controlador.getControlador().clicarCasilla(coord, "izq");
+							Buscaminas.getBuscaminas().clicarCasilla(coord, "izq");
 						}
 						
 						else {
-							Controlador.getControlador().clicarCasilla(coord, "der");
+							Buscaminas.getBuscaminas().clicarCasilla(coord, "der");
 						}	
 					}
 				});
