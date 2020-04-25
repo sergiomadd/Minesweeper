@@ -95,7 +95,7 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 				boton.setIcon(new ImageIcon(getClass().getResource("bomba_trasp.png").getPath()));
 				boton.setBackground(new Color(255,0,0));	
 			}		
-			else if(mostrar.equals("tapado")) {
+			else if(mostrar.equals("tapada")) {
 				boton.setIcon(null);	
 			}		
 			else if(mostrar.equals("acabada")) {
@@ -150,11 +150,8 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 		}
 		else if(x==12 && y==25)
 		{
-<<<<<<< HEAD
-			setBounds(100, 100, 60*x, 45	*y);
-=======
+
 			setBounds(100, 100, 80*x, 30*y);
->>>>>>> branch 'master' of https://github.com/sergiomadd/Minesweeper.git
 		}
 		else
 		{

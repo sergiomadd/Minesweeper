@@ -154,7 +154,7 @@ public class Tablero extends java.util.Observable
 					}
 				}
 				
-				if(this.matriz[x][y] instanceof CasillaMina)
+				if(this.matriz[x][y] instanceof CasillaMina && !(matriz[x][y].getEstado2() instanceof EstadoMarcado))
 				{
 					//Pregunta: Acceder a este metodo asi, o llamarlo desde la propia casillamina pasando por buscaminas.
 					Casilla casilla = matriz[x][y];
@@ -175,22 +175,32 @@ public class Tablero extends java.util.Observable
 			}
 			else //If click == "der"
 			{
-				if(matriz[x][y].hacerClick(click))
+				if(matriz[x][y].hacerClick(click)) //hay cambio de estado
 				{
 					if(numBanderas>0)
 					{
-						this.numBanderas--;
+						if(matriz[x][y].getEstado2() instanceof EstadoMarcado)//poniendo banderas
+						{
+							this.numBanderas--;
+							String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y)), Integer.toString(this.numBanderas)};
+							setChanged();
+							notifyObservers(datos);
+							System.out.println(matriz[x][y].getEstado());
+						}
+						
+					}
+					if (matriz[x][y].getEstado2() instanceof EstadoTapadoB  || matriz[x][y].getEstado2() instanceof EstadoTapadoNB) //quitando banderas
+					{
+						this.numBanderas++;
 						String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y)), Integer.toString(this.numBanderas)};
 						setChanged();
 						notifyObservers(datos);
+						System.out.println(matriz[x][y].getEstado());
 					}
 				}
-				else
+				else //no hay cambio de estado
 				{
-					this.numBanderas++;
-					String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y)), Integer.toString(this.numBanderas)};
-					setChanged();
-					notifyObservers(datos);
+
 				}
 			}
 		}
