@@ -97,6 +97,7 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 			}		
 			else if(mostrar.equals("tapada")) {
 				boton.setIcon(null);
+				boton.setIcon(null);	
 			}		
 			else if(mostrar.equals("acabada")) {
 				System.out.println("Efectivamente has acabado");
@@ -146,10 +147,11 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 		}
 		else if(x==10 && y==15)
 		{
-			setBounds(100, 100, 60*x, 42*y);
+			setBounds(100, 100, 60*x, 45*y);
 		}
 		else if(x==12 && y==25)
 		{
+
 			setBounds(100, 100, 80*x, 30*y);
 		}
 		else
