@@ -9,16 +9,40 @@ public class Tablero extends java.util.Observable
 	private Casilla[][] matriz;
 	private int numBanderas;
 	private int contadorCasillas;
+	private Integer numBombas;
+	private Integer tamX; 
+	private Integer tamY;
+	private boolean primerClick = true;
 	
 	public Tablero(Integer tamX, Integer tamY, Integer numBombas)
 	{
+		this.tamX=tamX;
+		this.tamY=tamY;
+		this.numBombas=numBombas;
+		
 		acabado = false;
 		System.out.println(numBombas);
 		this.numBanderas = numBombas;
-		TableroFactory factory = TableroFactory.getTableroFactory();
 		contadorCasillas = tamX * tamY - numBombas;
-
 		matriz = new Casilla[tamX][tamY];
+		TableroFactory factory = TableroFactory.getTableroFactory();
+		
+		for (int i = 0; i < matriz.length; i++)
+		{
+			for (int j = 0; j < matriz[i].length; j++)
+			{
+				if(matriz[i][j] == null) {
+					matriz[i][j] = factory.crearCasilla(0);
+				}
+			}
+		}
+		
+	}
+	
+	private void generarBombas(int notX, int notY)
+	{
+		TableroFactory factory = TableroFactory.getTableroFactory();
+		
 		//insertar minas
 		int randX;
 		int randY;
@@ -28,7 +52,17 @@ public class Tablero extends java.util.Observable
 		{
 			randX = rand1.nextInt(tamX);
 			randY = rand2.nextInt(tamY);
-			matriz[randX][randY] = factory.crearCasilla(-1);
+			if (randX!=notX && randY !=notY)
+			{
+				Estado est = matriz[randX][randY].getEstado2();
+				matriz[randX][randY] = factory.crearCasilla(-1); //inserta casilla tipo bomba
+				matriz[randX][randY].setEstado(est); 
+			}
+			else 
+			{
+				i--; //hace otra iteracion
+			}
+			
 		}
 		
 		//rellenar matriz
@@ -36,14 +70,15 @@ public class Tablero extends java.util.Observable
 		{
 			for (int j = 0; j < matriz[i].length; j++)
 			{
-				Casilla casilla = matriz[i][j];
-				if(matriz[i][j] == null) {
+				if(!(matriz[i][j] instanceof CasillaMina)) {
+					Estado est = matriz[i][j].getEstado2();
 					matriz[i][j] = factory.crearCasilla(comprobarVecinos(i,j));
+					matriz[i][j].setEstado(est); 
 				}
 			}
 		}
+		
 	}
-	
 	
 	private int comprobarVecinos(int posX, int posY)
 	{
@@ -128,6 +163,12 @@ public class Tablero extends java.util.Observable
 	@SuppressWarnings("deprecation")
 	public void mostrarCasilla(Integer x, Integer y, String click)
 	{
+		if (primerClick && click.equals("izq") && !(matriz[x][y].getEstado2() instanceof EstadoMarcado)) //es primer click izquierdo en no bandera
+		{
+			generarBombas(x,y);
+			printTablero();
+			primerClick=false;
+		}
 		if(inBounds(x,y) && acabado == false)
 		{
 			if(click.equals("izq"))
@@ -155,6 +196,7 @@ public class Tablero extends java.util.Observable
 				}
 				
 				if(this.matriz[x][y] instanceof CasillaMina && !(matriz[x][y].getEstado2() instanceof EstadoMarcado))
+				//click izquierdo sobre una bandera con bomba	
 				{
 					//Pregunta: Acceder a este metodo asi, o llamarlo desde la propia casillamina pasando por buscaminas.
 					Casilla casilla = matriz[x][y];
