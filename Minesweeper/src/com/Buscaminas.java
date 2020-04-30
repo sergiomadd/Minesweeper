@@ -75,6 +75,7 @@ public class Buscaminas
 	{
 		ArrayList<String> info = new ArrayList<String>();
 		 try{
+			 //Leemos el archivo de puntuaciones
 			 BufferedReader entrada = new BufferedReader(new FileReader("datos.txt"));
 			 String linea = entrada.readLine();
 			 String ultimo = "";
@@ -89,6 +90,7 @@ public class Buscaminas
 			 	 }
 			 }
 			 entrada.close();
+			 //Iteramos sobre la lista de informacion del archivo
 			 
 			 Iterator<String> itr = info.iterator();
 			 String actual = itr.next();
@@ -97,7 +99,7 @@ public class Buscaminas
 			 //actual es el string de la partida que se esta recorriendo
 			 //pos es la posicion en el array de actual
 			 while(itr.hasNext())
-			 {
+			 {//Introducimos la partida recien jugada en el ArrayList en la posicion correspondiente
 				 if(Integer.parseInt(ultimo.split(" ")[1]) < Integer.parseInt(actual.split(" ")[1]))
 				 {
 					 info.add(pos, ultimo);
@@ -117,7 +119,7 @@ public class Buscaminas
 		 System.out.println(info);
 		 
 		 try {
-            FileWriter writer = new FileWriter("datos.txt", true);
+            FileWriter writer = new FileWriter("datos.txt", false);
             Iterator<String> itr = info.iterator();
             String actual;
 			 while(itr.hasNext())

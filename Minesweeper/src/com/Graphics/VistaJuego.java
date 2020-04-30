@@ -286,9 +286,5 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 			timer.stop();
 		}
 		
-		public int getTiempo() {
-			return tiempo;
-		}
-
 		
 }
