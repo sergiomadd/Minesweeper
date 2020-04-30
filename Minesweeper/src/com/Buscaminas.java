@@ -87,7 +87,6 @@ public class Buscaminas
 			 //ultimo es los puntos de la partida jugada
 			 //actual es el string de la partida que se esta recorriendo
 			 //pos es la posicion en el array de actual
-			 
 			 if(!itr.hasNext())
 			 {
 				 info.add(pos, this.user + " " + puntos);
