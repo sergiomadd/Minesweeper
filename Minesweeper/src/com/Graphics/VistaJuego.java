@@ -103,9 +103,10 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 				System.out.println("Efectivamente has acabado y has perdido :(");
 				pararTimer();
 			}
-			else if(mostrar.equals("ganado")) {
+			else if(mostrar.equals("ganada")) {
 				System.out.println("Efectivamente has acabado y has ganado :)");
 				pararTimer();
+				Buscaminas.getBuscaminas().anadirPuntuacion(tiempo);
 			}
 	}
 

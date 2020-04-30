@@ -56,32 +56,6 @@ public class VistaPuntuaciones extends JFrame {
 		panel_1.add(puntuaciones);
 		puntuaciones.setColumns(10);
 		puntuaciones.setEditable(false);
-		
-		Scanner scan;
-	    static String Name, Surname;
-
-	    public void open() {
-
-	        try {
-	            scan = new Scanner(new File("C:/team1.txt"));
-	            System.out.println("it is working");
-	        } catch (FileNotFoundException e) {
-	            System.out.println("it is not working");
-	        }
-	    }
-
-	    public void read() {
-	        do {
-	            Name = scan.next();
-
-	            if (scan.hasNext())
-	                Surname = scan.next();
-
-	        } while (scan.hasNext());
-	        System.out.println(Name + Surname);
-
-	        scan.close();
-	    }
 	
 
 		

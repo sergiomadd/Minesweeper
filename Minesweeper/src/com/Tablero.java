@@ -281,10 +281,18 @@ public class Tablero extends java.util.Observable
 	{
 		if(ganado)
 		{
+			String[] datos = {"0", "0", "ganada", "", "0"};
+			setChanged();
+			notifyObservers(datos);
+			acabado = true;
 			System.out.println("Has ganado :)");
 		}
 		else
 		{
+			String[] datos = {"0", "0", "perdida", "", "0"};
+			setChanged();
+			notifyObservers(datos);
+			acabado = true;
 			System.out.println("Has perdido :(");
 		}
 		for (int i = 0; i < matriz.length; i++)
@@ -303,10 +311,6 @@ public class Tablero extends java.util.Observable
 				}
 			}
 		}
-		String[] datos = {"0", "0", "acabada", "", "0"};
-		setChanged();
-		notifyObservers(datos);
-		acabado = true;
 	}
 	
 	private int getNum(int x, int y)
