@@ -68,32 +68,75 @@ public class Buscaminas
 		ArrayList<String> puntuaciones = new ArrayList<String>();
 		 try
 		 {
-			 //Leemos el archivo de puntuaciones
+			 //Leemos el archivo de puntuaciones y metemos en un vector
 		     Scanner entrada = new Scanner(new File(path)); 
 		     
 		     while (entrada.hasNextLine()) 
 		     { 
-		    	 String linea = entrada.nextLine();
-		    	 System.out.println(linea);
-		    	 puntuaciones.add(linea);
+		    	 puntuaciones.add(entrada.nextLine());
 			 } 
 			 entrada.close();
+		 
+			 System.out.println("VECTOR DE PUNTUACIONES");
+			 System.out.println(puntuaciones);
+			 System.out.println("-----------------------");
+			 
+			 Iterator<String> itr = puntuaciones.iterator();
+			 //itr es un string de tipo:
+			 //nombre puntos
+			 int pos = 0;
+			 boolean added= false;
+			 
+			 if(puntuaciones.isEmpty()) 
+			 { //Si no hay puntuaciones previas añadimos sin comprobar
+				 puntuaciones.add(pos, this.user + " " + puntos);
+			 }
+			 else
+			 { //Si hay puntuaciones previas comprobamos la posicion a añadir
+				 int puntosActual = Integer.parseInt((itr.next()).split(" ")[1]);
+				 while(itr.hasNext() && !added)
+				 { 
+					 //Introducimos nueva puntuacion en la posicion correspondiente
+					 if(puntos < puntosActual)
+					 {
+						 puntuaciones.add(pos, this.user + " " + puntos);
+						 added = true;
+					 }
+					 else
+					 {
+						 puntosActual = Integer.parseInt((itr.next()).split(" ")[1]);
+						 pos++;
+					 } 
+				 }
+			 }
+			 
+			 
 		 }
 		 catch(Exception e) 
 		 {
-			 
+			 System.out.println("Error al leer el archivo");
+			 e.printStackTrace();
 		 }
-			 
-			 //Iteramos sobre la lista de informacion del archivo
-			 
-			 Iterator<String> itr = puntuaciones.iterator();
-			 String actual = "";
-			 int pos = 0;
-			 
-			 //ultimo es los puntos de la partida jugada
-			 //actual es el string de la partida que se esta recorriendo
-			 //pos es la posicion en el array de actual
-			 
+		 try
+		 {
+		 FileWriter writer = new FileWriter("resources"+ File.separator + "datos.txt", false);
+         Iterator<String> itr = puntuaciones.iterator();
+         String actual;
+		 while(itr.hasNext())
+		 {
+			 actual = itr.next();
+			 writer.write(actual +"\n");
+		 }
+         writer.close();
+		 } 
+		 catch (IOException e) 
+		 {
+			 System.out.println("Error al escribir en el archivo");
+			 e.printStackTrace();
+	     }
+		 
+		
+
 	}
 	
 	public void clicarCasilla(Coordenada coord, String click) 
