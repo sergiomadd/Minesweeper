@@ -1,6 +1,7 @@
 package com;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,6 +19,7 @@ public class Buscaminas
 	private Tablero tablero;
 	private static Buscaminas miBuscaminas;
 	private HashMap<Integer, String> datos;
+	private String path;
 	
 	private Buscaminas()
 	{
@@ -59,54 +61,49 @@ public class Buscaminas
 		}
 	}
 	
-	public void anadirPuntuacion(Integer puntos)
+	public void actualizarPuntuaciones(int puntos)
 	{
-	    try {
-            FileWriter writer = new FileWriter("datos.txt", true);
-            writer.write(this.user + " " + puntos);
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-	    ordenarPuntuacion();
-	}
-	
-	private void ordenarPuntuacion()
-	{
+		path = "resources"+ File.separator + "datos.txt";
 		ArrayList<String> info = new ArrayList<String>();
 		 try{
 			 //Leemos el archivo de puntuaciones
-			 BufferedReader entrada = new BufferedReader(new FileReader("datos.txt"));
-			 String linea = entrada.readLine();
-			 String ultimo = "";
-			 while (linea != null) 
-			 {
-			 	 linea = entrada.readLine();
-			 	 if(linea != null)
-			 	 {
-					 info.add(linea);
-					 ultimo = linea;
-					 System.out.println("Linea: " + linea);
-			 	 }
-			 }
+			 File file = new File(path); 
+		     Scanner entrada = new Scanner(file); 
+		     
+		     while (entrada.hasNextLine()) 
+		     { 
+		    	 String linea = entrada.nextLine();
+		    	 System.out.println(linea);
+		    	 info.add(linea);
+			 } 
 			 entrada.close();
+			 
 			 //Iteramos sobre la lista de informacion del archivo
 			 
 			 Iterator<String> itr = info.iterator();
-			 String actual = itr.next();
+			 String actual = "";
 			 int pos = 0;
+			 
 			 //ultimo es los puntos de la partida jugada
 			 //actual es el string de la partida que se esta recorriendo
 			 //pos es la posicion en el array de actual
-			 while(itr.hasNext())
-			 {//Introducimos la partida recien jugada en el ArrayList en la posicion correspondiente
-				 if(Integer.parseInt(ultimo.split(" ")[1]) < Integer.parseInt(actual.split(" ")[1]))
+			 
+			 if(!itr.hasNext())
+			 {
+				 info.add(pos, this.user + " " + puntos);
+			 }
+			 else
+			 {
+				 while(itr.hasNext())
 				 {
-					 info.add(pos, ultimo);
-					 info.remove(-1);
+					 actual = itr.next();
+					 //Introducimos la partida recien jugada en el ArrayList en la posicion correspondiente
+					 if(puntos < Integer.parseInt(actual.split(" ")[1]))
+					 {
+						 info.add(pos, this.user + " " + puntos);
+					 }
+					 pos++;
 				 }
-				 actual = itr.next();
-				 pos++;
 			 }
 			 entrada.close();
 		 }catch(Exception e)
@@ -119,7 +116,7 @@ public class Buscaminas
 		 System.out.println(info);
 		 
 		 try {
-            FileWriter writer = new FileWriter("datos.txt", false);
+            FileWriter writer = new FileWriter("resources"+ File.separator + "datos.txt", false);
             Iterator<String> itr = info.iterator();
             String actual;
 			 while(itr.hasNext())
