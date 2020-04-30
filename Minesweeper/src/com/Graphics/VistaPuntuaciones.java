@@ -1,6 +1,7 @@
 package com.Graphics;
 
 import java.awt.BorderLayout;
+import java.util.Scanner;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -15,7 +16,7 @@ public class VistaPuntuaciones extends JFrame {
 
 	private JPanel contentPane;
 	private final JPanel panel_1 = new JPanel();
-	private JTextField textField;
+	private JTextField puntuaciones;
 
 	/**
 	 * Launch the application.
@@ -51,15 +52,44 @@ public class VistaPuntuaciones extends JFrame {
 		panel.add(lblNewLabel);
 		contentPane.add(panel_1);
 		
-		textField = new JTextField();
-		panel_1.add(textField);
-		textField.setColumns(10);
+		puntuaciones = new JTextField();
+		panel_1.add(puntuaciones);
+		puntuaciones.setColumns(10);
+		puntuaciones.setEditable(false);
+		
+		Scanner scan;
+	    static String Name, Surname;
+
+	    public void open() {
+
+	        try {
+	            scan = new Scanner(new File("C:/team1.txt"));
+	            System.out.println("it is working");
+	        } catch (FileNotFoundException e) {
+	            System.out.println("it is not working");
+	        }
+	    }
+
+	    public void read() {
+	        do {
+	            Name = scan.next();
+
+	            if (scan.hasNext())
+	                Surname = scan.next();
+
+	        } while (scan.hasNext());
+	        System.out.println(Name + Surname);
+
+	        scan.close();
+	    }
+	
+
 		
 		JPanel panel_2 = new JPanel();
 		contentPane.add(panel_2);
 		
-		JButton btnNewButton = new JButton("New button");
-		panel_2.add(btnNewButton);
+		JButton btnAceptar = new JButton("Aceptar");
+		panel_2.add(btnAceptar);
 	}
 
 }

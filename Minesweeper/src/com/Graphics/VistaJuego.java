@@ -31,6 +31,7 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 	private JButton[][] posMinas = null;
 	
 	private int auxY;
+	private int tiempo;
 
 	private JPanel contentPane;
 	private JPanel Grid;
@@ -98,8 +99,12 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 				boton.setIcon(null);
 				boton.setIcon(null);	
 			}		
-			else if(mostrar.equals("acabada")) {
-				System.out.println("Efectivamente has acabado");
+			else if(mostrar.equals("perdida")) {
+				System.out.println("Efectivamente has acabado y has perdido :(");
+				pararTimer();
+			}
+			else if(mostrar.equals("ganado")) {
+				System.out.println("Efectivamente has acabado y has ganado :)");
 				pararTimer();
 			}
 	}
@@ -183,7 +188,8 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 	    	
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	          lblTiempo.setText(String.valueOf(f.format((System.currentTimeMillis()-start))));
+	        	lblTiempo.setText(String.valueOf(f.format((System.currentTimeMillis()-start))));
+	        	System.out.println("Arriba: "+String.valueOf(f.format((System.currentTimeMillis()-start))));
 	        }
 	      });
 
@@ -256,6 +262,7 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 	    }
 	
 		private void iniciarTimer(JLabel lblTiempo) {
+			System.out.println("Timer iniciado");
 			lblTiempo.setText("00:00");
 			timer.removeActionListener(timer.getActionListeners()[0]);
 			timer = new Timer(1000, new ActionListener() {
@@ -265,7 +272,10 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 		        @Override
 		        public void actionPerformed(ActionEvent e) {
 		          lblTiempo.setText(String.valueOf(f.format((System.currentTimeMillis()-start))));
+		          tiempo=(int) (System.currentTimeMillis()-start);
 		        }
+		        
+				
 		      });
 			timer.start();
 		}
@@ -274,5 +284,10 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 		{
 			timer.stop();
 		}
+		
+		public int getTiempo() {
+			return tiempo;
+		}
+
 		
 }
