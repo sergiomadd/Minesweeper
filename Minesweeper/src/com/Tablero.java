@@ -172,6 +172,7 @@ public class Tablero extends java.util.Observable
 		}
 		if(inBounds(x,y) && acabado == false)
 		{
+			finalizarPartida(true);
 			if(click.equals("izq"))
 			{
 				if(this.matriz[x][y] instanceof CasillaVacia && (this.matriz[x][y].getEstado2() instanceof EstadoTapadoNB))
