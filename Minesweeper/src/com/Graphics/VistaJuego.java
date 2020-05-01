@@ -145,7 +145,7 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 		tab.addObserver(this);
 		auxY=y;
 		posMinas = new JButton[x][y];
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		if(x==7 && y==10)
 		{
 			setBounds(100, 100, 420, 415);
@@ -284,6 +284,13 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 		private void pararTimer()
 		{
 			timer.stop();
+		}
+		
+		@Override
+		public void dispose() {
+			System.out.println("FINALIZAR SESION");
+		    VistaPuntuaciones vista = new VistaPuntuaciones();
+		    super.dispose();
 		}
 		
 		
