@@ -164,16 +164,21 @@ public class Tablero extends java.util.Observable
 	@SuppressWarnings("deprecation")
 	public void mostrarCasilla(Integer x, Integer y, String click)
 	{
+		//Si es el primer click, es click izq y la casilla no esta marcada
 		if (primerClick && click.equals("izq") && !(matriz[x][y].esMarcada())) //es primer click izquierdo en no bandera
 		{
 			generarBombas(x,y);
 			printTablero();
 			primerClick=false;
 		}
+		//Si la casilla esta dentro del tablero y la partida no esta acabada
 		if(inBounds(x,y) && acabado == false)
 		{
+			//Si es click izq
 			if(click.equals("izq"))
 			{
+				//Si la casilla es vacia, no es visible y no esta marcada
+				//If para recursivo
 				if(this.matriz[x][y] instanceof CasillaVacia && (!matriz[x][y].esMina() && !matriz[x][y].esVisible() && !matriz[x][y].esMarcada()))
 				{
 					if(matriz[x][y].hacerClick(click)) 
@@ -181,65 +186,60 @@ public class Tablero extends java.util.Observable
 						contadorCasillas--;
 					}
 					String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y)),Integer.toString(this.numBanderas)};
-					setChanged();
-					notifyObservers(datos);
+					actualizarVista(datos);
 					mostrarVecinos(x, y, click);
 				}
 				else
 				{	
+					//Si la casilla tiene numero
 					if(!matriz[x][y].esMina() && !matriz[x][y].esVisible() && !matriz[x][y].esMarcada())
 					{
 						if(matriz[x][y].hacerClick(click)) {contadorCasillas--;}
 						String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y)),Integer.toString(this.numBanderas)};
-						setChanged();
-						notifyObservers(datos);
+						actualizarVista(datos);
 					}
 				}
-				
-				if(this.matriz[x][y].esMina() && !(matriz[x][y].esMarcada()))
-				//click izquierdo sobre una bandera con bomba	
+				//Si es mina y no esta marcada
+				if(this.matriz[x][y].esMina() && !(matriz[x][y].esMarcada()))	
 				{
-					//Pregunta: Acceder a este metodo asi, o llamarlo desde la propia casillamina pasando por buscaminas.
 					Casilla casilla = matriz[x][y];
 					casilla.hacerClick("izq");
 					String[] datos = {Integer.toString(x), Integer.toString(y), "rojo", Integer.toString(getNum(x,y)), "0"};
-					setChanged();
-					notifyObservers(datos);
+					actualizarVista(datos);
 					finalizarPartida(false);
 				}
 				
 				else 
 				{
+					//Si se acaban las casillas no mina se gana
 					if(contadorCasillas <= 0)
 					{
 						finalizarPartida(true);
 					}
-				}//
+				}
 			}
-			
-			else //If click == "der"
+			//If click == "der"
+			else 
 			{
 				if(matriz[x][y].hacerClick(click)) //hay cambio de estado
 				{
 					if(numBanderas>0)
 					{
+						//Si la casilla esta marcada
 						if(matriz[x][y].esMarcada())//poniendo banderas
 						{
 							this.numBanderas--;
 							String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y)), Integer.toString(this.numBanderas)};
-							setChanged();
-							notifyObservers(datos);
-							System.out.println(matriz[x][y].getEstado());
+							actualizarVista(datos);
 						}
 						
 					}
+					//Si la casilla no es visible y no esta marcada y si es o no mina
 					if ((matriz[x][y].esMina() && !matriz[x][y].esVisible() && !matriz[x][y].esMarcada()) || (!matriz[x][y].esMina() && !matriz[x][y].esVisible() && !matriz[x][y].esMarcada()) ) //quitando banderas
 					{
 						this.numBanderas++;
 						String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y)), Integer.toString(this.numBanderas)};
-						setChanged();
-						notifyObservers(datos);
-						System.out.println(matriz[x][y].getEstado());
+						actualizarVista(datos);
 					}
 				}
 				else //no hay cambio de estado
@@ -311,6 +311,12 @@ public class Tablero extends java.util.Observable
 				}
 			}
 		}
+	}
+	
+	private void actualizarVista(String[] input)
+	{
+		setChanged();
+		notifyObservers(input);
 	}
 	
 	private int getNum(int x, int y)
