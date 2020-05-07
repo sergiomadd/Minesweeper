@@ -129,7 +129,6 @@ public class Buscaminas
 			 }
 			
 		 }
-			 
 		 
 		 try
 		 {
@@ -148,9 +147,6 @@ public class Buscaminas
 			 System.out.println("Error al escribir en el archivo");
 			 e.printStackTrace();
 	     }
-		 
-		
-
 	}
 	
 	public void clicarCasilla(Coordenada coord, String click) 

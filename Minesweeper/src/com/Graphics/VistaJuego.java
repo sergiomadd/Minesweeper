@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Observable;
 import java.util.Observer;
@@ -82,17 +83,18 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 			}
 			else if(mostrar.equals("bandera")) {
 				boton.setIcon(null);	
-				boton.setIcon(new ImageIcon(getClass().getResource("flag_trasp.png").getPath()));
+				System.getProperties();
+				boton.setIcon(new ImageIcon("resources"+ File.separator + "flag_trasp.png"));
 			}
 			else if(mostrar.equals("bomba")) {
 				//muestra resto de bombas fondo gris
 				boton.setIcon(null);	
-				boton.setIcon(new ImageIcon(getClass().getResource("bomba_trasp.png").getPath()));
+				boton.setIcon(new ImageIcon("resources"+ File.separator + "bomba_trasp.png"));
 				boton.setBackground(gris);
 			}
 			else if(mostrar.equals("rojo")) {
 				boton.setIcon(null);	
-				boton.setIcon(new ImageIcon(getClass().getResource("bomba_trasp.png").getPath()));
+				boton.setIcon(new ImageIcon("resources"+ File.separator + "bomba_trasp.png"));
 				boton.setBackground(new Color(255,0,0));	
 			}		
 			else if(mostrar.equals("tapada")) {
@@ -194,7 +196,7 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 	        }
 	      });
 
-		btnReset.setIcon(new ImageIcon(getClass().getResource("reset_trasp.png").getPath()));
+		btnReset.setIcon(new ImageIcon("resources"+ File.separator + "reset_trasp.png"));
 
 		
 		
