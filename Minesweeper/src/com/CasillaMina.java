@@ -4,7 +4,7 @@ public class CasillaMina extends Casilla
 {
 	public CasillaMina()
 	{
-		this.estado = new EstadoTapadoB();
+		this.estado = new EstadoTapado();
 	}
 	
 	@Override
@@ -20,6 +20,11 @@ public class CasillaMina extends Casilla
 			state = "bandera";
 		}
 		return state;
+	}
+	
+	public boolean esMina()
+	{
+		return true;
 	}
 	
 	public void print()

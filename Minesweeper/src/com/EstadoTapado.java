@@ -1,10 +1,10 @@
 package com;
 
-public class EstadoTapadoB implements Estado
+public class EstadoTapado implements Estado 
 {
 	public boolean clickDerecho(Casilla cas)
 	{
-		cas.setEstado(new EstadoMarcado(this));
+		cas.setEstado(new EstadoMarcado());
 		return true;
 	}
 	

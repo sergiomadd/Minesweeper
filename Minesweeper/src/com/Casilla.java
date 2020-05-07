@@ -6,7 +6,7 @@ public abstract class Casilla
 	
 	public Casilla()
 	{
-		Estado inicial = new EstadoTapadoNB();
+		Estado inicial = new EstadoTapado();
 		setEstado(inicial);
 	}
 	
@@ -38,6 +38,21 @@ public abstract class Casilla
 		}
 		
 		return devolver;
+	}
+	
+	public boolean esMina()
+	{
+		return false;
+	}
+	
+	public boolean esVisible()
+	{
+		return estado.esVisible();
+	}
+	
+	public boolean esMarcada()
+	{
+		return estado.esMarcada();
 	}
 	
 	public int getNum() 

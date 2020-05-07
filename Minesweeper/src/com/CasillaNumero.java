@@ -7,7 +7,7 @@ public class CasillaNumero extends Casilla
 	public CasillaNumero(Integer pNum)
 	{
 		this.num = pNum;
-		this.estado = new EstadoTapadoNB();
+		this.estado = new EstadoTapado();
 	}
 	
 	@Override

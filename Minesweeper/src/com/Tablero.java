@@ -71,7 +71,7 @@ public class Tablero extends java.util.Observable
 		{
 			for (int j = 0; j < matriz[i].length; j++)
 			{
-				if(!(matriz[i][j] instanceof CasillaMina)) {
+				if(!(matriz[i][j].esMina())) {
 					Estado est = matriz[i][j].getEstado2();
 					matriz[i][j] = factory.crearCasilla(comprobarVecinos(i,j));
 					matriz[i][j].setEstado(est); 
@@ -109,7 +109,7 @@ public class Tablero extends java.util.Observable
 		{
 			if(inBounds(x[i],y[i]))
 			{
-				if (matriz[x[i]][y[i]] instanceof CasillaMina)
+				if (matriz[x[i]][y[i]].esMina())
 				{
 					count++;
 				}
@@ -153,7 +153,7 @@ public class Tablero extends java.util.Observable
 		{
 			if(inBounds(x[i],y[i]))
 			{
-				if(this.matriz[x[i]][y[i]].getEstado2() instanceof EstadoTapadoNB) 
+				if(!this.matriz[x[i]][y[i]].esMina() && !this.matriz[x[i]][y[i]].esVisible() && !this.matriz[x[i]][y[i]].esMarcada()) 
 				{
 					mostrarCasilla(x[i], y[i], click);
 				}
@@ -164,7 +164,7 @@ public class Tablero extends java.util.Observable
 	@SuppressWarnings("deprecation")
 	public void mostrarCasilla(Integer x, Integer y, String click)
 	{
-		if (primerClick && click.equals("izq") && !(matriz[x][y].getEstado2() instanceof EstadoMarcado)) //es primer click izquierdo en no bandera
+		if (primerClick && click.equals("izq") && !(matriz[x][y].esMarcada())) //es primer click izquierdo en no bandera
 		{
 			generarBombas(x,y);
 			printTablero();
@@ -174,7 +174,7 @@ public class Tablero extends java.util.Observable
 		{
 			if(click.equals("izq"))
 			{
-				if(this.matriz[x][y] instanceof CasillaVacia && (this.matriz[x][y].getEstado2() instanceof EstadoTapadoNB))
+				if(this.matriz[x][y] instanceof CasillaVacia && (!matriz[x][y].esMina() && !matriz[x][y].esVisible() && !matriz[x][y].esMarcada()))
 				{
 					if(matriz[x][y].hacerClick(click)) 
 					{
@@ -187,7 +187,7 @@ public class Tablero extends java.util.Observable
 				}
 				else
 				{	
-					if(this.matriz[x][y].getEstado2() instanceof EstadoTapadoNB)
+					if(!matriz[x][y].esMina() && !matriz[x][y].esVisible() && !matriz[x][y].esMarcada())
 					{
 						if(matriz[x][y].hacerClick(click)) {contadorCasillas--;}
 						String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y)),Integer.toString(this.numBanderas)};
@@ -196,7 +196,7 @@ public class Tablero extends java.util.Observable
 					}
 				}
 				
-				if(this.matriz[x][y] instanceof CasillaMina && !(matriz[x][y].getEstado2() instanceof EstadoMarcado))
+				if(this.matriz[x][y].esMina() && !(matriz[x][y].esMarcada()))
 				//click izquierdo sobre una bandera con bomba	
 				{
 					//Pregunta: Acceder a este metodo asi, o llamarlo desde la propia casillamina pasando por buscaminas.
@@ -223,7 +223,7 @@ public class Tablero extends java.util.Observable
 				{
 					if(numBanderas>0)
 					{
-						if(matriz[x][y].getEstado2() instanceof EstadoMarcado)//poniendo banderas
+						if(matriz[x][y].esMarcada())//poniendo banderas
 						{
 							this.numBanderas--;
 							String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y)), Integer.toString(this.numBanderas)};
@@ -233,7 +233,7 @@ public class Tablero extends java.util.Observable
 						}
 						
 					}
-					if (matriz[x][y].getEstado2() instanceof EstadoTapadoB  || matriz[x][y].getEstado2() instanceof EstadoTapadoNB) //quitando banderas
+					if ((matriz[x][y].esMina() && !matriz[x][y].esVisible() && !matriz[x][y].esMarcada()) || (!matriz[x][y].esMina() && !matriz[x][y].esVisible() && !matriz[x][y].esMarcada()) ) //quitando banderas
 					{
 						this.numBanderas++;
 						String[] datos = {Integer.toString(x), Integer.toString(y), getMostrar(x,y), Integer.toString(getNum(x,y)), Integer.toString(this.numBanderas)};
@@ -300,7 +300,7 @@ public class Tablero extends java.util.Observable
 			for (int j = 0; j < matriz[i].length; j++)
 			{
 				Casilla casilla = matriz[i][j];
-				if(casilla instanceof CasillaMina)
+				if(casilla.esMina())
 				{
 					if(casilla.hacerClick("izq"))
 					{

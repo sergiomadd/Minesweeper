@@ -4,7 +4,7 @@ public class CasillaVacia extends Casilla
 {
 	public CasillaVacia()
 	{
-		this.estado = new EstadoTapadoNB();
+		this.estado = new EstadoTapado();
 	}
 	
 	@Override

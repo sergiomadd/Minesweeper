@@ -3,22 +3,14 @@ package com;
 public class EstadoMarcado implements Estado
 {
 	
-	private Estado previo;
-	
-	public EstadoMarcado(Estado pPrevio)
-	{
-		previo = pPrevio;
-	}
-	
 	public boolean clickDerecho(Casilla cas)
 	{
-		cas.setEstado(previo);
+		cas.setEstado(new EstadoTapado());
 		return true;
 	}
 	
 	public boolean clickIzquierdo(Casilla cas)
 	{
-		//no hacer nada, ya esta destapada
 		return false;
 	}
 	
