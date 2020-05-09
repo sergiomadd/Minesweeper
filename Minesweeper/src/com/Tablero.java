@@ -282,19 +282,18 @@ public class Tablero extends java.util.Observable
 		if(ganado)
 		{
 			String[] datos = {"0", "0", "ganada", "", "0"};
-			setChanged();
-			notifyObservers(datos);
+			actualizarVista(datos);
 			acabado = true;
 			System.out.println("Has ganado :)");
 		}
 		else
 		{
 			String[] datos = {"0", "0", "perdida", "", "0"};
-			setChanged();
-			notifyObservers(datos);
+			actualizarVista(datos);
 			acabado = true;
 			System.out.println("Has perdido :(");
 		}
+		//Revela todas las minas
 		for (int i = 0; i < matriz.length; i++)
 		{
 			for (int j = 0; j < matriz[i].length; j++)
@@ -305,8 +304,7 @@ public class Tablero extends java.util.Observable
 					if(casilla.hacerClick("izq"))
 					{
 						String[] datos = {Integer.toString(i), Integer.toString(j), getMostrar(i,j), Integer.toString(getNum(i,j)), "0"};
-						setChanged();
-						notifyObservers(datos);
+						actualizarVista(datos);
 					}
 				}
 			}

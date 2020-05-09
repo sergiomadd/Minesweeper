@@ -67,37 +67,49 @@ public class VistaJuego extends JFrame implements java.util.Observer{
 	public void update(Observable tab, Object datos2) {
 			int x,y;
 			String[] datos = (String[]) datos2;
+			/*Datos:
+			1)Coordenada x de la casilla pulsada
+			2)Coordenada y de la casilla pulsada
+			3)Estado de la casilla pulsada
+			4)Numero de la casilla pulsada
+			5)Cantidad de banderas restantes
+			*/
 			x = Integer.parseInt(datos[0]);
 			y = Integer.parseInt(datos[1]);
 			JButton boton = posMinas[x][y];
 			String mostrar = datos[2];
 			lblBanderas.setText("Banderas:" + datos[4]);
 			if (mostrar.equals("vacio")){
+				//Muestra una casilla vacia
 				boton.setBackground(gris);
 				boton.setBorder(new LineBorder(grisBorde));
 			}
 			else if(mostrar.equals("numero")) {
+				//Muestra una casilla vacia con un numero de la cantidad de minas adyacentes
 				boton.setBackground(gris);
 				boton.setBorder(new LineBorder(grisBorde));
 				boton.setText(datos[3]);
 			}
 			else if(mostrar.equals("bandera")) {
+				//Muestra un icono de una bandera
 				boton.setIcon(null);	
 				System.getProperties();
 				boton.setIcon(new ImageIcon("resources"+ File.separator + "flag_trasp.png"));
 			}
 			else if(mostrar.equals("bomba")) {
-				//muestra resto de bombas fondo gris
+				//Muesta una bomba
 				boton.setIcon(null);	
 				boton.setIcon(new ImageIcon("resources"+ File.separator + "bomba_trasp.png"));
 				boton.setBackground(gris);
 			}
 			else if(mostrar.equals("rojo")) {
+				//Muestra la primera bomba pero roja
 				boton.setIcon(null);	
 				boton.setIcon(new ImageIcon("resources"+ File.separator + "bomba_trasp.png"));
 				boton.setBackground(new Color(255,0,0));	
 			}		
 			else if(mostrar.equals("tapada")) {
+				//Muestra una casilla sin modificar
 				boton.setIcon(null);
 				boton.setIcon(null);	
 			}		
